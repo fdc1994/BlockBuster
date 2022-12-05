@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CamadaInterface.Forms;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -14,6 +15,7 @@ namespace CamadaInterface
     public partial class FormGestao : Form
     {
         Form parentForm;
+        FormUtilizadores formUtilizadores;
         public FormGestao(Form parentForm)
         {
             InitializeComponent();
@@ -26,6 +28,10 @@ namespace CamadaInterface
             parentForm.Show();
         }
 
-
+        private void button4_Click(object sender, EventArgs e)
+        {
+            formUtilizadores = new FormUtilizadores();
+            formUtilizadores.Show();
+        }
     }
 }
