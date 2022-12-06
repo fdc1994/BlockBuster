@@ -15,7 +15,7 @@ namespace CamadaInterface
     public partial class FormGestao : Form
     {
         Form parentForm;
-        FormUtilizadores formUtilizadores;
+        FormUtilizador formUtilizadores;
         public FormGestao(Form parentForm)
         {
             InitializeComponent();
@@ -30,7 +30,7 @@ namespace CamadaInterface
 
         private void button4_Click(object sender, EventArgs e)
         {
-            formUtilizadores = new FormUtilizadores();
+            formUtilizadores = new FormUtilizador();
             formUtilizadores.Show();
         }
     }

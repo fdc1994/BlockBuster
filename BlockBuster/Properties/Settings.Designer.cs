@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CamadaDados.Properties {
+namespace CamadaInterface.Properties {
     
     
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
@@ -25,10 +25,10 @@ namespace CamadaDados.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=BLOCKBUSTER;Data Source=DESKTOP-KVBLF29")]
-        public string ConnectionString {
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public int IdUtilizador {
             get {
-                return ((string)(this["ConnectionString"]));
+                return ((int)(this["IdUtilizador"]));
             }
         }
     }

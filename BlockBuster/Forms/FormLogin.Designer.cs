@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormLogin_EnterDown);
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();

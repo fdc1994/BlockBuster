@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CamadaNegocio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -18,18 +19,42 @@ namespace CamadaInterface
         public FormLogin()
         {
             InitializeComponent();
-            childForm = new FormGestao(this);
+           
         }
 
         private void button1_Click(object sender, EventArgs e)
         {
-            childForm.Show();
-            this.Hide();
+            attemptLogin();
+        }
+
+        private void FormLogin_EnterDown(object sender, KeyEventArgs e)
+        {
+            attemptLogin(); 
         }
 
         private void FormLogin_Load(object sender, EventArgs e)
         {
 
+        }
+
+        private void attemptLogin()
+        {
+            string user = textBox1.Text;
+            string password = textBox2.Text;
+            string erro = String.Empty;
+
+            int result = Utilizador.ObterUtilizadorLogin(user, password, out erro);
+
+            if (erro == String.Empty && result != -1)
+            {
+                childForm = new FormGestao(this);
+                childForm.Show();
+                this.Hide();
+            }
+            else
+            {
+                MessageBox.Show("Erro", "Utilizador não encontrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CamadaDados;
+using Ferramenta;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -6,6 +8,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace CamadaNegocio
 {
@@ -37,12 +40,12 @@ namespace CamadaNegocio
             set { pass = value; }
         }
 
-        private bool admin;
+        private EnumUtilizadores status;
 
-        public bool Admin
+        public EnumUtilizadores Status
         { 
-            get { return admin; } 
-            set { admin = value; } 
+            get { return status; } 
+            set { status = value; } 
         }
         #endregion
 
@@ -53,12 +56,13 @@ namespace CamadaNegocio
 
         }
 
-        public Utilizador(string nomeUtilizador, string pass, bool administrador)
+        public Utilizador(int id, string nomeUtilizador, string pass, EnumUtilizadores status)
             : this()
         {
+            this.idUtilizador =id;  
             this.nomeUtilizador =nomeUtilizador;    
             this.pass = pass;   
-            this.admin = administrador;
+            this.status = status;
         }
 
         #endregion
@@ -70,12 +74,6 @@ namespace CamadaNegocio
             SqlDataReader dataReader = null;
             erro = string.Empty;
 
-            //V1
-            //CamadaDados.Aluno aluno = new CamadaDados.Aluno();
-            //ok = aluno.Gravar(this.IDAluno, this.NomeAluno, this.DataNascimento, this.Telefone, out erro);
-
-            //V2
-
             DataTable t1 = CamadaDados.Utilizadores.ObterUtilizador(id, out erro);
             foreach (DataRow item in t1.Rows)
             {
@@ -83,6 +81,42 @@ namespace CamadaNegocio
                 Console.WriteLine(utilizador.ToString());
             }
             return t1;
+        }
+
+        public static int ObterUtilizadorLogin(string nome, string pass, out string erro)
+        {
+            DataTable t1 = CamadaDados.Utilizadores.ObterUtilizadorLogin(nome, pass, out erro);
+            if (t1 != null && t1.Rows.Count > 0)
+            {
+                //return first result
+                return (int)t1.Rows[0][0];
+            }
+            return -1;
+           
+        }
+
+        public static DataTable ObterTodosOsUtilizadores(out string erro)
+        {
+            Utilizador utilizador = new Utilizador();
+            SqlDataReader dataReader = null;
+            erro = string.Empty;
+            DataTable t1 = CamadaDados.Utilizadores.ObterTodosOsUtilizadores(out erro);
+            foreach (DataRow item in t1.Rows)
+            {
+                utilizador.idUtilizador = (int)item[0];
+                Console.WriteLine(utilizador.ToString());
+            }
+            return t1;
+        }
+
+        public void GravarUtilizador(string nome, string pass, int cargo, out string erro)
+        {
+            CamadaDados.Utilizadores.GravarUtilizador(this.idUtilizador, nome, pass, cargo, out erro);
+        }
+
+        public void GravarUtilizador(out string erro)
+        {
+            CamadaDados.Utilizadores.GravarUtilizador(this.idUtilizador, this.NomeUtilizador, this.pass, (int)this.status, out erro);
         }
         #endregion
     }
