@@ -52,7 +52,7 @@
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(502, 286);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_SelectionChanged);
+            this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_SelectionChanged);
             // 
             // buttonApagar
             // 
@@ -82,6 +82,7 @@
             this.buttonAdicionar.TabIndex = 5;
             this.buttonAdicionar.Text = "Adicionar Novo Filme";
             this.buttonAdicionar.UseVisualStyleBackColor = true;
+            this.buttonAdicionar.Click += new System.EventHandler(this.buttonAdicionar_Click);
             // 
             // FormFilmes
             // 

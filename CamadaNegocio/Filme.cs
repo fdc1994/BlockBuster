@@ -74,6 +74,12 @@ namespace CamadaNegocio
             CamadaDados.Filmes.GravarFilme(id, nome, quantidade, out erro );
         }
 
+        public bool GravarNovoFilme(string nome, int quantidade, out string erro)
+        {
+            return CamadaDados.Filmes.GravarNovoFilme(nome, quantidade, out erro);
+        }
+
+
         public void ApagarFilme(int id, out string erro)
         {
             CamadaDados.Filmes.ApagarFilme(id, out erro);

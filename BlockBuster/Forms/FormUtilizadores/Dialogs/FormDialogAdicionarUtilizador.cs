@@ -17,7 +17,7 @@ namespace CamadaInterface.Forms.FormUtilizadores.Dialogs
     public partial class FormDialogAdicionarUtilizador : Form
     {
         private bool novoUtilizadorECliente = false;
-        public FormDialogAdicionarUtilizador(int id)
+        public FormDialogAdicionarUtilizador()
         {
             InitializeComponent();
             Setup();

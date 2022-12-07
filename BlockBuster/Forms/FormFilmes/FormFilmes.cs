@@ -111,5 +111,15 @@ namespace CamadaInterface.Forms.FormFilmes
             
             
         }
+
+        private void buttonAdicionar_Click(object sender, EventArgs e)
+        {
+            FormDialogAdicionarFilme formAdicionarFilme = new FormDialogAdicionarFilme();
+            var result = formAdicionarFilme.ShowDialog();
+            if (result == DialogResult.Cancel)
+            {
+                setup();
+            }
+        }
     }
 }

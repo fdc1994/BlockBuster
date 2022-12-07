@@ -93,7 +93,7 @@ namespace CamadaInterface.Forms
 
         private void buttonAdicionar_Click(object sender, EventArgs e)
         {
-            FormDialogAdicionarUtilizador formAdicionarUtilizador = new FormDialogAdicionarUtilizador(utilizadores.Count+1);  
+            FormDialogAdicionarUtilizador formAdicionarUtilizador = new FormDialogAdicionarUtilizador();  
             var result = formAdicionarUtilizador.ShowDialog();
             if (result == DialogResult.Cancel)
             {
