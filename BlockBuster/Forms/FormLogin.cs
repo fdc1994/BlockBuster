@@ -1,4 +1,5 @@
-﻿using CamadaNegocio;
+﻿using BlockBuster;
+using CamadaNegocio;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -43,17 +44,18 @@ namespace CamadaInterface
             string password = textBox2.Text;
             string erro = String.Empty;
 
-            int result = Utilizador.ObterUtilizadorLogin(user, password, out erro);
+            Utilizador novoUtilizador = Utilizador.ObterUtilizadorLogin(user, password, out erro);
 
-            if (erro == String.Empty && result != -1)
+            if (erro == String.Empty && novoUtilizador != null)
             {
+                Program.SetupNewLoggedInUser(novoUtilizador);
                 childForm = new FormGestao(this);
                 childForm.Show();
                 this.Hide();
             }
             else
             {
-                MessageBox.Show("Erro", "Utilizador não encontrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro: " + erro, "Utilizador não encontrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

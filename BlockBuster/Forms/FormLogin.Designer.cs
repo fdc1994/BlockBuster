@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormLogin_EnterDown);
             this.button1 = new System.Windows.Forms.Button();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -82,6 +81,7 @@
             this.textBox1.Name = "textBox1";
             this.textBox1.Size = new System.Drawing.Size(150, 31);
             this.textBox1.TabIndex = 4;
+            this.textBox1.Text = "admin";
             // 
             // textBox2
             // 
@@ -90,6 +90,7 @@
             this.textBox2.PasswordChar = '*';
             this.textBox2.Size = new System.Drawing.Size(150, 31);
             this.textBox2.TabIndex = 5;
+            this.textBox2.Text = "admin";
             // 
             // FormLogin
             // 
@@ -102,9 +103,12 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.button1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormLogin";
             this.Text = "Login";
             this.Load += new System.EventHandler(this.FormLogin_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.FormLogin_EnterDown);
             this.ResumeLayout(false);
             this.PerformLayout();
 

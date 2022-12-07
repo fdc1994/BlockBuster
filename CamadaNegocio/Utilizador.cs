@@ -83,16 +83,25 @@ namespace CamadaNegocio
             return t1;
         }
 
-        public static int ObterUtilizadorLogin(string nome, string pass, out string erro)
+        public static Utilizador ObterUtilizadorLogin(string nome, string pass, out string erro)
         {
-            DataTable t1 = CamadaDados.Utilizadores.ObterUtilizadorLogin(nome, pass, out erro);
+             DataTable t1 = CamadaDados.Utilizadores.ObterUtilizadorLogin(nome, pass, out erro);
+           // DataTable t1 = CamadaDados.Utilizadores.ObterTodosOsUtilizadores(out erro);
             if (t1 != null && t1.Rows.Count > 0)
             {
-                //return first result
-                return (int)t1.Rows[0][0];
+                try
+                {
+                    DataRow row = t1.Rows[0];
+                    //return first result
+                    return new Utilizador((int)row[0], (string)row[1], (string)row[2], (EnumUtilizadores)row[3]);
+                }
+                catch(Exception ex)
+                {
+                    erro = ex.Message;  
+                }
+              
             }
-            return -1;
-           
+            return null;
         }
 
         public static DataTable ObterTodosOsUtilizadores(out string erro)

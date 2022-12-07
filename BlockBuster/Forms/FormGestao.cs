@@ -1,4 +1,5 @@
-﻿using CamadaInterface.Forms;
+﻿using BlockBuster;
+using CamadaInterface.Forms;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -30,8 +31,21 @@ namespace CamadaInterface
 
         private void button4_Click(object sender, EventArgs e)
         {
-            formUtilizadores = new FormUtilizador();
-            formUtilizadores.Show();
+            if(formUtilizadores == null || formUtilizadores.IsDisposed)
+            {
+                formUtilizadores = new FormUtilizador();
+                formUtilizadores.Show();
+            } else
+            {
+                formUtilizadores.BringToFront();
+            }
+           
+        }
+
+        private void FormGestao_Load(object sender, EventArgs e)
+        {
+            string name = Program.GetUtilizador().NomeUtilizador;
+            this.labelWelcome.Text = "Welcome " + name;
         }
     }
 }

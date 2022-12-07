@@ -14,6 +14,7 @@ using Ferramenta;
 using Microsoft.VisualBasic.ApplicationServices;
 using CamadaDados;
 using CamadaInterface.Forms.FormUtilizadores.Dialogs;
+using BlockBuster;
 
 namespace CamadaInterface.Forms
 {
@@ -97,12 +98,39 @@ namespace CamadaInterface.Forms
 
         private void buttonAdicionar_Click(object sender, EventArgs e)
         {
-            FormDialogAdicionarUtilizador formAdicionarUtilizador = new FormDialogAdicionarUtilizador(utilizadores.Count);  
+            FormDialogAdicionarUtilizador formAdicionarUtilizador = new FormDialogAdicionarUtilizador(utilizadores.Count+1);  
             var result = formAdicionarUtilizador.ShowDialog();
             if (result == DialogResult.Cancel)
             {
                 setup();
             }
+        }
+
+        private void buttonApagar_Click(object sender, EventArgs e)
+        {
+            int selectedUserId = utilizadores[currentSelectedIndex].IdUtilizador;
+            if (selectedUserId != Program.GetUtilizador().IdUtilizador)
+            {
+                FormDialogConfirmarApagar formApagarUtilizador = new FormDialogConfirmarApagar();
+                var result = formApagarUtilizador.ShowDialog();
+
+                if (result == DialogResult.OK)
+                {
+                    string erro = String.Empty;
+                    bool resultDelete = CamadaDados.Utilizadores.ApagarUtilizador(selectedUserId, out erro);
+
+                    if (erro == String.Empty && resultDelete)
+                    {
+                        setup();
+                        MessageBox.Show("Sucesso", "Utilizador Apagado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+
+                }
+            } else
+            {
+                MessageBox.Show("Não pode apagar o utilizador com sessão iniciada. Por favor mude de sessão e tente de novo", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
         }
     }
 }

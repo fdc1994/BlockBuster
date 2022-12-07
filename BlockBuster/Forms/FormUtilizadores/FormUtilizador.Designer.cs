@@ -79,6 +79,7 @@
             this.buttonApagar.TabIndex = 4;
             this.buttonApagar.Text = "Apagar Utilizador";
             this.buttonApagar.UseVisualStyleBackColor = true;
+            this.buttonApagar.Click += new System.EventHandler(this.buttonApagar_Click);
             // 
             // FormUtilizador
             // 
@@ -90,6 +91,8 @@
             this.Controls.Add(this.buttonAdicionar);
             this.Controls.Add(this.dataGridView1);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormUtilizador";
             this.Text = "Utilizadores";
             this.Load += new System.EventHandler(this.FormUtilizadores_Load);

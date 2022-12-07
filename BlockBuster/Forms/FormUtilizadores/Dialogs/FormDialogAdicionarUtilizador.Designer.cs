@@ -54,6 +54,7 @@
             this.comboBoxCargo.Name = "comboBoxCargo";
             this.comboBoxCargo.Size = new System.Drawing.Size(205, 33);
             this.comboBoxCargo.TabIndex = 12;
+            this.comboBoxCargo.SelectedIndexChanged += new System.EventHandler(this.comboBoxCargo_SelectedIndexChanged);
             // 
             // textBoxPass
             // 
@@ -109,8 +110,10 @@
             this.Controls.Add(this.label3);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
+            this.MaximizeBox = false;
+            this.MinimizeBox = false;
             this.Name = "FormDialogAdicionarUtilizador";
-            this.Text = "Form1";
+            this.Text = "Adicionar Utilizador";
             this.Load += new System.EventHandler(this.FormDialogAdicionarUtilizador_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
