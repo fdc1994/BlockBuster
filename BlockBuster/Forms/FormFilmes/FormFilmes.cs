@@ -1,4 +1,6 @@
-﻿using CamadaNegocio;
+﻿using BlockBuster;
+using CamadaInterface.Forms.FormUtilizadores.Dialogs;
+using CamadaNegocio;
 using Ferramenta;
 using System;
 using System.Collections.Generic;
@@ -61,24 +63,53 @@ namespace CamadaInterface.Forms.FormFilmes
                 filmes.Add(filme);
             }
         }
+        private Filme returnFilmeEscolhido()
+        {
+            return filmes[currentSelectedIndex];
+        }
+
+        private void dataGridView1_SelectionChanged(object sender, EventArgs e)
+        {
+            currentSelectedIndex = dataGridView1.CurrentRow.Index;
+        }
 
         private void buttonEditar_Click(object sender, EventArgs e)
         {
+            FormDialogEditarFilme formEditarFilme = new FormDialogEditarFilme(returnFilmeEscolhido());
+            var result = formEditarFilme.ShowDialog();
 
+            if (result == DialogResult.Cancel)
+            {
+                setup();
+            }
         }
 
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        private void buttonApagar_Click(object sender, EventArgs e)
         {
+            try
+            {
+                int selectedMovieId = returnFilmeEscolhido().IdFilme;
+                FormDialogConfirmarApagar formApagarFilme = new FormDialogConfirmarApagar("Filme");
+                    var result = formApagarFilme.ShowDialog();
 
-        }
-        private void buttonEditar_Click_1(object sender, EventArgs e)
-        {
-            this.buttonEditar.Enabled = false;  
-        }
+                    if (result == DialogResult.OK)
+                    {
+                        string erro = String.Empty;
+                        bool resultDelete = CamadaDados.Filmes.ApagarFilme(selectedMovieId, out erro);
 
-        private void dataGridView1_CellContentClick_1(object sender, DataGridViewCellEventArgs e)
-        {
+                        if (erro == String.Empty && resultDelete)
+                        {
+                            setup();
+                            MessageBox.Show("Sucesso", "Filme Apagado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
 
+                    }
+
+            }catch(Exception ex) {
+                MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+            
+            
         }
     }
 }

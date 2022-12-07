@@ -40,6 +40,7 @@ namespace CamadaInterface
             {
                 textBoxPass.Enabled = false;    
                 comboBoxCargo.Enabled = false;
+                comboBoxCargo.SelectedIndex = 3;
             }
         }
 

@@ -52,7 +52,7 @@
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(502, 286);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick_1);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_SelectionChanged);
             // 
             // buttonApagar
             // 
@@ -62,6 +62,7 @@
             this.buttonApagar.TabIndex = 7;
             this.buttonApagar.Text = "Apagar Filme";
             this.buttonApagar.UseVisualStyleBackColor = true;
+            this.buttonApagar.Click += new System.EventHandler(this.buttonApagar_Click);
             // 
             // buttonEditar
             // 
@@ -71,7 +72,7 @@
             this.buttonEditar.TabIndex = 6;
             this.buttonEditar.Text = "Editar Filme";
             this.buttonEditar.UseVisualStyleBackColor = true;
-            this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click_1);
+            this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
             // 
             // buttonAdicionar
             // 
@@ -92,7 +93,7 @@
             this.Controls.Add(this.buttonAdicionar);
             this.Controls.Add(this.dataGridView1);
             this.Name = "FormFilmes";
-            this.Text = "FormFilmes";
+            this.Text = "Filmes";
             this.Load += new System.EventHandler(this.FormFilmes_Load);
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);

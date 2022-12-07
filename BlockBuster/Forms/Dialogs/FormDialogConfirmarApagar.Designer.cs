@@ -73,7 +73,7 @@
             this.buttonCancel.UseVisualStyleBackColor = true;
             this.buttonCancel.Click += new System.EventHandler(this.buttonCancel_Click);
             // 
-            // FormDialogConfirmarApagar
+            // FormDialogConfirmarApagarFilme
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -84,8 +84,9 @@
             this.Controls.Add(this.label1);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
-            this.Name = "FormDialogConfirmarApagar";
+            this.Name = "FormDialogConfirmarApagarFilme";
             this.Text = "Apagar Utilizador";
+            this.Load += new System.EventHandler(this.FormDialogConfirmarApagarFilme_Load);
             this.ResumeLayout(false);
             this.PerformLayout();
 

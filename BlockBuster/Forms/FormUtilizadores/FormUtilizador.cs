@@ -103,29 +103,36 @@ namespace CamadaInterface.Forms
 
         private void buttonApagar_Click(object sender, EventArgs e)
         {
-            int selectedUserId = returnUtilizadorEscolhido().IdUtilizador;
-            if (selectedUserId != Program.GetUtilizador().IdUtilizador)
+            try
             {
-                FormDialogConfirmarApagar formApagarUtilizador = new FormDialogConfirmarApagar();
-                var result = formApagarUtilizador.ShowDialog();
-
-                if (result == DialogResult.OK)
+                int selectedUserId = returnUtilizadorEscolhido().IdUtilizador;
+                if (selectedUserId != Program.GetUtilizador().IdUtilizador)
                 {
-                    string erro = String.Empty;
-                    bool resultDelete = CamadaDados.Utilizadores.ApagarUtilizador(selectedUserId, out erro);
+                    FormDialogConfirmarApagar formApagarUtilizador = new FormDialogConfirmarApagar("Utilizador");
+                    var result = formApagarUtilizador.ShowDialog();
 
-                    if (erro == String.Empty && resultDelete)
+                    if (result == DialogResult.OK)
                     {
-                        setup();
-                        MessageBox.Show("Sucesso", "Utilizador Apagado", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                    }
+                        string erro = String.Empty;
+                        bool resultDelete = CamadaDados.Utilizadores.ApagarUtilizador(selectedUserId, out erro);
 
+                        if (erro == String.Empty && resultDelete)
+                        {
+                            setup();
+                            MessageBox.Show("Sucesso", "Utilizador Apagado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+
+                    }
                 }
-            } else
-            {
-                MessageBox.Show("Não pode apagar o utilizador com sessão iniciada. Por favor mude de sessão e tente de novo", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                else
+                {
+                    MessageBox.Show("Não pode apagar o utilizador com sessão iniciada. Por favor mude de sessão e tente de novo", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
             }
-            
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
     }
 }

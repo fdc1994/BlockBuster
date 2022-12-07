@@ -70,8 +70,13 @@ namespace CamadaNegocio
             return t1;
         }
 
-        public void GravarFilme(string nome, string pass, int cargo, out string erro) { 
-            CamadaDados.Filmes.GravarNovoFilme(nome, quantidade, out erro );
+        public void GravarFilme(int id, string nome, int quantidade, out string erro) { 
+            CamadaDados.Filmes.GravarFilme(id, nome, quantidade, out erro );
+        }
+
+        public void ApagarFilme(int id, out string erro)
+        {
+            CamadaDados.Filmes.ApagarFilme(id, out erro);
         }
         #endregion
     }

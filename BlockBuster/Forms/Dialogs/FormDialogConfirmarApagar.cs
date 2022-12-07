@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CamadaNegocio;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -12,9 +13,11 @@ namespace CamadaInterface.Forms.FormUtilizadores.Dialogs
 {
     public partial class FormDialogConfirmarApagar : Form
     {
-        public FormDialogConfirmarApagar()
+        private string itemASerApagado = String.Empty;
+        public FormDialogConfirmarApagar(string contextString)
         {
             InitializeComponent();
+            this.itemASerApagado = contextString;
         }
 
         private void buttonOK_Click(object sender, EventArgs e)
@@ -25,6 +28,11 @@ namespace CamadaInterface.Forms.FormUtilizadores.Dialogs
         private void buttonCancel_Click(object sender, EventArgs e)
         {
             this.DialogResult = DialogResult.Cancel;
+        }
+
+        private void FormDialogConfirmarApagarFilme_Load(object sender, EventArgs e)
+        {
+            this.label1.Text = "Tem a certeza que pretende apagar este" + itemASerApagado + "?";
         }
     }
 }
