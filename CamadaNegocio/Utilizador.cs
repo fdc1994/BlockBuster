@@ -65,6 +65,14 @@ namespace CamadaNegocio
             this.status = status;
         }
 
+        public Utilizador(string nomeUtilizador, string pass, EnumUtilizadores status)
+            : this()
+        {
+            this.nomeUtilizador = nomeUtilizador;
+            this.pass = pass;
+            this.status = status;
+        }
+
         #endregion
 
         #region Metodos
@@ -123,9 +131,9 @@ namespace CamadaNegocio
             CamadaDados.Utilizadores.GravarUtilizador(this.idUtilizador, nome, pass, cargo, out erro);
         }
 
-        public void GravarUtilizador(out string erro)
+        public bool GravarNovoUtilizador(out string erro)
         {
-            CamadaDados.Utilizadores.GravarUtilizador(this.idUtilizador, this.NomeUtilizador, this.pass, (int)this.status, out erro);
+            return CamadaDados.Utilizadores.GravarNovoUtilizador(this.NomeUtilizador, this.pass, (int)this.status, out erro);
         }
         #endregion
     }

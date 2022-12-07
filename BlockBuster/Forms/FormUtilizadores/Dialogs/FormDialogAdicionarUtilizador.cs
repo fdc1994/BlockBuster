@@ -16,14 +16,11 @@ namespace CamadaInterface.Forms.FormUtilizadores.Dialogs
 {
     public partial class FormDialogAdicionarUtilizador : Form
     {
-
-        private int Id = 0;
         private bool novoUtilizadorECliente = false;
         public FormDialogAdicionarUtilizador(int id)
         {
             InitializeComponent();
             Setup();
-            Id = id;
         }
 
         private void Setup()
@@ -43,15 +40,16 @@ namespace CamadaInterface.Forms.FormUtilizadores.Dialogs
 
         private void buttonGuardar_Click(object sender, EventArgs e)
         {
+      
             string nome = textBoxNome.Text;
             string pass = textBoxPass.Text;
             int cargo = comboBoxCargo.SelectedIndex;
 
             if(!string.IsNullOrEmpty(nome) && !string.IsNullOrEmpty(pass)) {
-                guardarUtilizador(Id, nome, pass, cargo);
+                guardarUtilizador(nome, pass, cargo);
             } else if(novoUtilizadorECliente && !string.IsNullOrEmpty(nome))
             {
-                guardarUtilizador(Id, nome, String.Empty, cargo);
+                guardarUtilizador(nome, String.Empty, cargo);
             }
         }
 
@@ -69,12 +67,12 @@ namespace CamadaInterface.Forms.FormUtilizadores.Dialogs
             }
         }
 
-        private void guardarUtilizador(int Id, string nome, string pass, int cargo)
+        private void guardarUtilizador(string nome, string pass, int cargo)
         {
             string erro = String.Empty;
-            Utilizador novoUtilizador = new Utilizador(this.Id, nome, pass, (EnumUtilizadores)cargo);
-            novoUtilizador.GravarUtilizador(out erro);
-            if (erro != String.Empty)
+            Utilizador novoUtilizador = new Utilizador(nome, pass, (EnumUtilizadores)cargo);
+            bool result = novoUtilizador.GravarNovoUtilizador(out erro);
+            if (erro != String.Empty && result)
             {
                 MessageBox.Show("Erro" + erro);
             }

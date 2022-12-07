@@ -74,6 +74,54 @@ namespace CamadaDados
             return resultado;
         }
 
+        public static bool GravarNovoUtilizador(string nome, string pass, int cargo, out string erro)
+        {
+            bool resultado = false;
+            erro = string.Empty;
+
+            try
+            {
+                using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.ConnectionString))
+
+                {
+                    sqlCon.Open();
+
+                    SqlCommand sqlCommand = new SqlCommand("GravarNovoUtilizador", sqlCon);
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    SqlParameter sqlParameter = sqlParameter = new SqlParameter("NomeUtilizador", System.Data.SqlDbType.NVarChar, 80);
+                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
+                    sqlParameter.Value = nome;
+
+                    sqlCommand.Parameters.Add(sqlParameter);
+
+                    sqlParameter = new SqlParameter("Hash", System.Data.SqlDbType.NVarChar, 80);
+                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
+                    sqlParameter.Value = pass;
+
+                    sqlCommand.Parameters.Add(sqlParameter);
+
+                    sqlParameter = new SqlParameter("Cargo", System.Data.SqlDbType.Int);
+                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
+                    sqlParameter.Value = cargo;
+
+                    sqlCommand.Parameters.Add(sqlParameter);
+
+                    int result = sqlCommand.ExecuteNonQuery();
+                    sqlCon.Close();
+
+                    resultado = true;
+
+                }
+            }
+            catch (Exception ex)
+            {
+                erro = ex.Message;
+            }
+
+            return resultado;
+        }
+
         public static DataTable ObterUtilizador(int id, out string erro)
         {
             bool resultado = false;
@@ -169,6 +217,39 @@ namespace CamadaDados
                     sqlCon.Open();
 
                     SqlCommand sqlCommand = new SqlCommand("ListarUtilizadores", sqlCon);
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    DataTable t1 = new DataTable();
+                    using (SqlDataAdapter a = new SqlDataAdapter(sqlCommand))
+                    {
+                        a.Fill(t1);
+                    }
+                    resultado = true;
+                    return t1;
+                }
+            }
+            catch (Exception ex)
+            {
+                erro = ex.Message;
+            }
+
+            return null;
+        }
+
+        public static DataTable ObterUltimoRegistoUtilizador(out string erro)
+        {
+            bool resultado = false;
+            erro = string.Empty;
+
+
+            try
+            {
+                using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.ConnectionString))
+
+                {
+                    sqlCon.Open();
+
+                    SqlCommand sqlCommand = new SqlCommand("ObterUltimoRegistoUtilizador", sqlCon);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
                     DataTable t1 = new DataTable();

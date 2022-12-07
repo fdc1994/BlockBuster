@@ -1,5 +1,6 @@
 ﻿using BlockBuster;
 using CamadaInterface.Forms;
+using CamadaInterface.Forms.FormFilmes;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -17,6 +18,7 @@ namespace CamadaInterface
     {
         Form parentForm;
         FormUtilizador formUtilizadores;
+        FormFilmes formFilmes;
         public FormGestao(Form parentForm)
         {
             InitializeComponent();
@@ -46,6 +48,19 @@ namespace CamadaInterface
         {
             string name = Program.GetUtilizador().NomeUtilizador;
             this.labelWelcome.Text = "Welcome " + name;
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (formFilmes == null || formFilmes.IsDisposed)
+            {
+                formFilmes = new FormFilmes();
+                formFilmes.Show();
+            }
+            else
+            {
+                formFilmes.BringToFront();
+            }
         }
     }
 }

@@ -28,15 +28,9 @@ namespace CamadaInterface.Forms
         {
             InitializeComponent();
         }
-
-        private void carregarUtilizadores()
-        {
-
-            setup();
-        }
         private void FormUtilizadores_Load(object sender, EventArgs e)
         {
-            carregarUtilizadores();
+            setup();
         }
 
         private void setup() {
@@ -66,6 +60,7 @@ namespace CamadaInterface.Forms
 
         private void setupData()
         {
+            utilizadores.Clear();
            foreach(DataRow row in dataTableUtilizadores.Rows)
             {
                 Utilizador utilizador = new Utilizador((int)row[0], (string)row[1], (string)row[2], (EnumUtilizadores)row[3]);
@@ -108,7 +103,7 @@ namespace CamadaInterface.Forms
 
         private void buttonApagar_Click(object sender, EventArgs e)
         {
-            int selectedUserId = utilizadores[currentSelectedIndex].IdUtilizador;
+            int selectedUserId = returnUtilizadorEscolhido().IdUtilizador;
             if (selectedUserId != Program.GetUtilizador().IdUtilizador)
             {
                 FormDialogConfirmarApagar formApagarUtilizador = new FormDialogConfirmarApagar();
