@@ -1,5 +1,7 @@
-﻿using System;
+﻿using Ferramenta;
+using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,15 +20,6 @@ namespace CamadaNegocio
             set { idReserva = value; }
         }
 
-
-        private string nomeCliente;
-
-        public string NomeCliente
-        {
-            get { return nomeCliente; }
-            set { nomeCliente = value; }
-        }
-
         private DateTime dataInicio;
 
         public DateTime DataInicio
@@ -42,6 +35,46 @@ namespace CamadaNegocio
             get { return dataFim; }
             set { dataFim = value; }
         }
+
+        private int idCliente;
+
+        public int IDCliente
+        {
+            get { return idCliente; }
+            set { idCliente = value; }
+        }
+
+        private string nomeCliente;
+
+        public string NomeCliente
+        {
+            get { return nomeCliente; }
+            set { nomeCliente = value; }
+        }
+
+        private int idFilme;
+        public int IDFilme
+        {
+            get { return idFilme; }
+            set { idFilme = value; }
+        }
+
+        private string nomeFilme;
+
+        public string NomeFilme
+        {
+            get { return nomeFilme; }
+            set { nomeFilme = value; }
+        }
+
+        private EnumEncomendas estado;
+        public EnumEncomendas Estado
+        {
+            get { return estado; }
+            set { estado = value; }
+        }
+
+
         #endregion
 
         #region Construtores
@@ -51,92 +84,39 @@ namespace CamadaNegocio
 
         }
 
-        public Reserva(string nomeCliente, DateTime dataInicio, Nullable<DateTime> dataFim)
+        public Reserva(int id, DateTime dataInicio, Nullable<DateTime> dataFim, int idCliente, string nomeCliente, int idFilme, string nomeFilme, EnumEncomendas estado)
             : this()
         {
-            this.idReserva = null;
+            this.idReserva = id;
+            this.dataInicio= dataInicio;   
+            this.dataFim= dataFim;
+            this.idCliente= idCliente;
             this.nomeCliente = nomeCliente;
+            this.idFilme= idFilme;
+            this.nomeFilme=nomeFilme;
+            this.estado= estado;
+        }
+
+        public Reserva(DateTime dataInicio, Nullable<DateTime> dataFim, int idCliente, string nomeCliente, int idFilme, string nomeFilme, EnumEncomendas estado)
+            : this()
+        {
             this.dataInicio = dataInicio;
             this.dataFim = dataFim;
+            this.idCliente = idCliente;
+            this.nomeCliente = nomeCliente;
+            this.idFilme = idFilme;
+            this.nomeFilme = nomeFilme;
+            this.estado = estado;
         }
 
         #endregion
 
         #region Metodos
-        public void Novo()
+        public static DataTable ObterTodasAsReservas(out string erro)
         {
-            this.IDReserva = null;
-            this.NomeCliente = string.Empty;
-            this.DataInicio = DateTime.Today;
-            this.dataFim = null;
-        }
-        public static Reserva NovaReserva()
-        {
-            Reserva reserva = new Reserva();
-
-            //V1
-            //aluno.IDAluno = string.Empty;
-            //aluno.NomeAluno = string.Empty;
-            //aluno.DataNascimento = DateTime.Today;
-            //aluno.Telefone = "+351 ";
-
-            //V2
-            reserva.Novo();
-
-            return reserva;
-        }
-
-        public bool Gravar(out string erro)
-        {
-            bool ok = false;
             erro = string.Empty;
-
-            //V1
-            //CamadaDados.Aluno aluno = new CamadaDados.Aluno();
-            //ok = aluno.Gravar(this.IDAluno, this.NomeAluno, this.DataNascimento, this.Telefone, out erro);
-
-            //V2
-           // ok = CamadaDados.Aluno.GravarAluno(this.IDAluno, this.NomeAluno, this.DataNascimento, this.Telefone, out erro);
-
-            return ok;
-        }
-
-        public bool Eliminar(out string erro)
-        {
-            bool ok = false;
-            erro = string.Empty;
-
-           // ok = CamadaDados.Aluno.Eliminar(this.IDAluno, out erro);
-
-            return ok;
-        }
-
-        public static Reserva ObterReserva(int id, out string erro)
-        {
-            Reserva reserva = null;
-            erro = string.Empty;
-            string nomeAluno = string.Empty;
-            DateTime dataNascimento = DateTime.Today;
-            string telefone = string.Empty;
-            bool ok = true;
-           // bool ok = CamadaDados.Reserva.Obter(ref id,out erro);
-
-            if (ok)
-            {
-                //V1
-                //aluno = new Aluno();
-
-                //aluno.IDAluno = idAluno;
-                //aluno.NomeAluno = nomeAluno;
-                //aluno.DataNascimento = dataNascimento;
-                //aluno.Telefone = telefone;
-
-                //V2
-                //reserva = new Reserva();
-
-            }
-
-            return reserva;
+            DataTable t1 = CamadaDados.Reservas.ObterTodasAsReservas(out erro);
+            return t1;
         }
         #endregion
     }

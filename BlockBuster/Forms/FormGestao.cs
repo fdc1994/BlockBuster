@@ -19,6 +19,7 @@ namespace CamadaInterface
         Form parentForm;
         FormUtilizador formUtilizadores;
         FormFilmes formFilmes;
+        FormReservas formReservas;
         public FormGestao(Form parentForm)
         {
             InitializeComponent();
@@ -60,6 +61,19 @@ namespace CamadaInterface
             else
             {
                 formFilmes.BringToFront();
+            }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (formReservas == null || formReservas.IsDisposed)
+            {
+                formReservas = new FormReservas();
+                formReservas.Show();
+            }
+            else
+            {
+                formReservas.BringToFront();
             }
         }
     }

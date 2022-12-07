@@ -18,13 +18,13 @@ using BlockBuster;
 
 namespace CamadaInterface.Forms
 {
-    public partial class FormUtilizador : Form
+    public partial class FormReservas : Form
     {
-        DataTable dataTableUtilizadores = new DataTable();
-        List<Utilizador> utilizadores = new List<Utilizador>();
+        DataTable dataTableReservas = new DataTable();
+        List<Reserva> utilizadores = new List<Reserva>();
         int currentSelectedIndex = 0;
         
-        public FormUtilizador()
+        public FormReservas()
         {
             InitializeComponent();
         }
@@ -36,9 +36,8 @@ namespace CamadaInterface.Forms
         private void setup() {
 
             string erro = String.Empty;
-            dataTableUtilizadores = Utilizador.ObterTodosOsUtilizadores(out erro);
-            Ferramenta.FerramentaUtilizadores.ResolverEnumsUtilizadores(dataTableUtilizadores);
-            dataTableUtilizadores.Columns[2].ColumnMapping = MappingType.Hidden;
+            dataTableReservas = Reserva.ObterTodasAsReservas(out erro);
+            Ferramenta.FerramentaEncomendas.ResolverEnumsEncomendas(dataTableReservas);
             if (erro != String.Empty)
             {
                 MessageBox.Show("Erro: " + erro);
@@ -53,19 +52,20 @@ namespace CamadaInterface.Forms
 
         private void setupViews()
         {
-            dataGridView1.DataSource = dataTableUtilizadores;
+            dataGridView1.DataSource = dataTableReservas;
             dataGridView1.ReadOnly = true;
             dataGridView1.SelectionMode= DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void setupData()
         {
+            /**
             utilizadores.Clear();
-           foreach(DataRow row in dataTableUtilizadores.Rows)
+           foreach(DataRow row in dataTableReservas.Rows)
             {
-                Utilizador utilizador = new Utilizador((int)row[0], (string)row[1], (string)row[2], (EnumUtilizadores)row[3]);
+                Reserva utilizador = new Utilizador((int)row[0], (string)row[1], (string)row[2], (EnumUtilizadores)row[3]);
                 utilizadores.Add(utilizador);
-            }
+            }**/
         }
 
 
@@ -83,7 +83,8 @@ namespace CamadaInterface.Forms
 
         private Utilizador returnUtilizadorEscolhido()
         {
-            return utilizadores[currentSelectedIndex];
+            return null;
+         //   return utilizadores[currentSelectedIndex];
         }
 
         private void dataGridView_SelectionChanged(object sender, EventArgs e)
@@ -133,6 +134,11 @@ namespace CamadaInterface.Forms
             {
                 MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

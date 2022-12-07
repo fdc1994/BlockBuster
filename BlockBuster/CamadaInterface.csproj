@@ -31,6 +31,9 @@
     <Compile Update="Forms\Dialogs\FormDialogAdicionarFilme.cs">
       <SubType>Form</SubType>
     </Compile>
+    <Compile Update="Forms\FormReservas\FormReservas.cs">
+      <SubType>Form</SubType>
+    </Compile>
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <AutoGen>True</AutoGen>

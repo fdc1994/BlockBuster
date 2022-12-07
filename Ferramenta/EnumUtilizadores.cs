@@ -20,7 +20,7 @@ namespace Ferramenta
         Cliente = 3
     }
 
-    public class Ferramenta
+    public class FerramentaUtilizadores
     {
         public static DataTable ResolverEnumsUtilizadores(DataTable table)
         {
