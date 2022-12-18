@@ -175,7 +175,53 @@ namespace CamadaDados
 
             return resultado;
         }
+
+        public static Boolean AtualizarFilme(int id, int quantidade, string nomeFilme, out string erro)
+        {
+            bool resultado = false;
+            erro = string.Empty;
+            try
+            {
+                using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.ConnectionString))
+
+                {
+                    sqlCon.Open();
+
+                    SqlCommand sqlCommand = new SqlCommand("GravarNovaQuantidadeFilme", sqlCon);
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    SqlParameter sqlParameter = new SqlParameter("ID", SqlDbType.Int);
+                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
+                    sqlParameter.Value = id;
+                    sqlCommand.Parameters.Add(sqlParameter);
+
+                    sqlParameter = new SqlParameter("Quantidade", SqlDbType.Int);
+                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
+                    sqlParameter.Value = quantidade;
+                    sqlCommand.Parameters.Add(sqlParameter);
+
+                    sqlParameter = sqlParameter = new SqlParameter("NomeFilme", System.Data.SqlDbType.NVarChar, 80);
+                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
+                    sqlParameter.Value = nomeFilme;
+                    sqlCommand.Parameters.Add(sqlParameter);
+
+                    int result = sqlCommand.ExecuteNonQuery();
+                    sqlCon.Close();
+
+                    resultado = true;
+                    return resultado;
+                }
+            }
+            catch (Exception ex)
+            {
+                erro = ex.Message;
+            }
+
+            return resultado;
+        }
     }
+
+
 
   
 }

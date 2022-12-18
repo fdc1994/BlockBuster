@@ -1,4 +1,4 @@
-﻿using Ferramenta;
+﻿using FerramentaReservas;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -12,9 +12,9 @@ namespace CamadaNegocio
     {
         #region Propriedades
 
-        private Nullable<int> idReserva;
+        private int idReserva;
 
-        public Nullable<int> IDReserva
+        public int IDReserva
         {
             get { return idReserva; }
             set { idReserva = value; }
@@ -97,7 +97,7 @@ namespace CamadaNegocio
             this.estado= estado;
         }
 
-        public Reserva(DateTime dataInicio, Nullable<DateTime> dataFim, int idCliente, string nomeCliente, int idFilme, string nomeFilme, EnumEncomendas estado)
+        public Reserva(DateTime dataInicio, DateTime dataFim, int idCliente, string nomeCliente, int idFilme, string nomeFilme, EnumEncomendas estado)
             : this()
         {
             this.dataInicio = dataInicio;

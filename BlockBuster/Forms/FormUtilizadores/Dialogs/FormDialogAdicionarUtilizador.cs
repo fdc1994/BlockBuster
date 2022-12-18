@@ -1,6 +1,6 @@
 ﻿using CamadaDados;
 using CamadaNegocio;
-using Ferramenta;
+using FerramentaReservas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -25,7 +25,7 @@ namespace CamadaInterface.Forms.FormUtilizadores.Dialogs
 
         private void Setup()
         {
-            foreach (string status in Enum.GetNames(typeof(EnumUtilizadores)))
+            foreach (string status in Enum.GetNames(typeof(FerramentaUtilizadores.EnumUtilizadores)))
             {
               this.comboBoxCargo.Items.Add(status);
               
@@ -70,7 +70,7 @@ namespace CamadaInterface.Forms.FormUtilizadores.Dialogs
         private void guardarUtilizador(string nome, string pass, int cargo)
         {
             string erro = String.Empty;
-            Utilizador novoUtilizador = new Utilizador(nome, pass, (EnumUtilizadores)cargo);
+            Utilizador novoUtilizador = new Utilizador(nome, pass, (FerramentaUtilizadores.EnumUtilizadores)cargo);
             bool result = novoUtilizador.GravarNovoUtilizador(out erro);
             if (erro != String.Empty && result)
             {

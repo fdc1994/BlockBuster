@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Ferramenta;
+using FerramentaReservas;
 using Microsoft.VisualBasic.ApplicationServices;
 using CamadaDados;
 using CamadaInterface.Forms.FormUtilizadores.Dialogs;
@@ -21,9 +21,9 @@ namespace CamadaInterface.Forms
     public partial class FormReservas : Form
     {
         DataTable dataTableReservas = new DataTable();
-        List<Reserva> utilizadores = new List<Reserva>();
+        List<Reserva> reservas = new List<Reserva>();
         int currentSelectedIndex = 0;
-        
+
         public FormReservas()
         {
             InitializeComponent();
@@ -33,11 +33,12 @@ namespace CamadaInterface.Forms
             setup();
         }
 
-        private void setup() {
+        private void setup()
+        {
 
             string erro = String.Empty;
             dataTableReservas = Reserva.ObterTodasAsReservas(out erro);
-            Ferramenta.FerramentaEncomendas.ResolverEnumsEncomendas(dataTableReservas);
+            FerramentaReservas.FerramentaReservas.ResolverEnumsEncomendas(dataTableReservas);
             if (erro != String.Empty)
             {
                 MessageBox.Show("Erro: " + erro);
@@ -54,47 +55,98 @@ namespace CamadaInterface.Forms
         {
             dataGridView1.DataSource = dataTableReservas;
             dataGridView1.ReadOnly = true;
-            dataGridView1.SelectionMode= DataGridViewSelectionMode.FullRowSelect;
+            dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
         }
 
         private void setupData()
         {
-            /**
-            utilizadores.Clear();
-           foreach(DataRow row in dataTableReservas.Rows)
+
+            reservas.Clear();
+            foreach (DataRow row in dataTableReservas.Rows)
             {
-                Reserva utilizador = new Utilizador((int)row[0], (string)row[1], (string)row[2], (EnumUtilizadores)row[3]);
-                utilizadores.Add(utilizador);
-            }**/
-        }
-
-
-        private void buttonEditar_Click(object sender, EventArgs e)
-        {
-            FormDialogEditarUtilizador formEditarUtilizador = new FormDialogEditarUtilizador(returnUtilizadorEscolhido()); 
-            var result = formEditarUtilizador.ShowDialog();
-
-            if(result == DialogResult.Cancel)
-            {
-                setup();
+                if (row[2] == DBNull.Value)
+                {
+                    row[2] = new DateTime();
+                }
+                Reserva reserva = new Reserva((int)row[0], (DateTime)row[1], (Nullable<DateTime>)row[2] ?? new DateTime(), (int)row[3], (string)row[4], (int)row[5], (string)row[6], (EnumEncomendas)row[7]);
+                reservas.Add(reserva);
             }
-            
         }
 
-        private Utilizador returnUtilizadorEscolhido()
+
+        private void buttonTerminar_Click(object sender, EventArgs e)
         {
-            return null;
-         //   return utilizadores[currentSelectedIndex];
+            try
+            {
+                Reserva reserva = returnReservaEscolhida();
+                int idReserva = reserva.IDReserva;
+                String nomeFilme = reserva.NomeFilme;
+                FormDialogConfirmarApagar formApagarReserva = new FormDialogConfirmarApagar("Reserva", "terminar");
+                if(reserva.Estado != EnumEncomendas.Terminada)
+                {
+                    var result = formApagarReserva.ShowDialog();
+
+                    if (result == DialogResult.OK)
+                    {
+                        string erro = String.Empty;
+                        bool resultUpdateFilme = CamadaDados.Filmes.AtualizarFilme(idReserva, 1, nomeFilme, out erro);
+
+                        if (erro == String.Empty && resultUpdateFilme)
+                        {
+                            bool resultDelete = CamadaDados.Reservas.TerminarReserva(idReserva, out erro);
+                            if (erro == String.Empty && resultUpdateFilme)
+                            {
+                                setup();
+                            }
+                            else
+                            {
+                                MessageBox.Show("Erro", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            }
+
+
+                        }
+
+                    }
+                } else
+                {
+                    MessageBox.Show("Esta encomenda já se encontra terminada" ,"Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+               
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
+
+        }
+
+        private Reserva returnReservaEscolhida()
+        {
+            if (currentSelectedIndex != -1)
+            {
+                return reservas[currentSelectedIndex];
+            }
+            else
+            {
+                return null;
+            }
+
         }
 
         private void dataGridView_SelectionChanged(object sender, EventArgs e)
         {
-           currentSelectedIndex = dataGridView1.CurrentRow.Index;
+            try { currentSelectedIndex = dataGridView1.CurrentRow.Index; }
+            catch (Exception ex)
+            {
+                currentSelectedIndex = -1;
+                MessageBox.Show("Erro:" + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            }
         }
 
         private void buttonAdicionar_Click(object sender, EventArgs e)
         {
-            FormDialogAdicionarUtilizador formAdicionarUtilizador = new FormDialogAdicionarUtilizador();  
+            FormDialogAdicionarUtilizador formAdicionarUtilizador = new FormDialogAdicionarUtilizador();
             var result = formAdicionarUtilizador.ShowDialog();
             if (result == DialogResult.Cancel)
             {
@@ -106,39 +158,38 @@ namespace CamadaInterface.Forms
         {
             try
             {
-                int selectedUserId = returnUtilizadorEscolhido().IdUtilizador;
-                if (selectedUserId != Program.GetUtilizador().IdUtilizador)
+                int idReserva = returnReservaEscolhida().IDReserva;
+                String nomeFilme = returnReservaEscolhida().NomeFilme;
+                FormDialogConfirmarApagar formApagarReserva = new FormDialogConfirmarApagar("Reserva", null);
+                var result = formApagarReserva.ShowDialog();
+
+                if (result == DialogResult.OK)
                 {
-                    FormDialogConfirmarApagar formApagarUtilizador = new FormDialogConfirmarApagar("Utilizador");
-                    var result = formApagarUtilizador.ShowDialog();
+                    string erro = String.Empty;
+                    bool resultUpdateFilme = CamadaDados.Filmes.AtualizarFilme(idReserva, 1, nomeFilme, out erro);
 
-                    if (result == DialogResult.OK)
+                    if (erro == String.Empty && resultUpdateFilme)
                     {
-                        string erro = String.Empty;
-                        bool resultDelete = CamadaDados.Utilizadores.ApagarUtilizador(selectedUserId, out erro);
-
-                        if (erro == String.Empty && resultDelete)
+                        bool resultDelete = CamadaDados.Reservas.ApagarReserva(idReserva, out erro);
+                        if (erro == String.Empty && resultUpdateFilme)
                         {
                             setup();
-                            MessageBox.Show("Sucesso", "Utilizador Apagado", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Erro", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
                         }
 
+
                     }
+
                 }
-                else
-                {
-                    MessageBox.Show("Não pode apagar o utilizador com sessão iniciada. Por favor mude de sessão e tente de novo", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
+
             }
             catch (Exception ex)
             {
                 MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
-        }
-
-        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
-        {
-
         }
     }
 }

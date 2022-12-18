@@ -236,6 +236,39 @@ namespace CamadaDados
             return null;
         }
 
+        public static DataTable ObterTodosOsClientes(out string erro)
+        {
+            bool resultado = false;
+            erro = string.Empty;
+
+
+            try
+            {
+                using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.ConnectionString))
+
+                {
+                    sqlCon.Open();
+
+                    SqlCommand sqlCommand = new SqlCommand("ListarClientes", sqlCon);
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    DataTable t1 = new DataTable();
+                    using (SqlDataAdapter a = new SqlDataAdapter(sqlCommand))
+                    {
+                        a.Fill(t1);
+                    }
+                    resultado = true;
+                    return t1;
+                }
+            }
+            catch (Exception ex)
+            {
+                erro = ex.Message;
+            }
+
+            return null;
+        }
+
         public static DataTable ObterUltimoRegistoUtilizador(out string erro)
         {
             bool resultado = false;

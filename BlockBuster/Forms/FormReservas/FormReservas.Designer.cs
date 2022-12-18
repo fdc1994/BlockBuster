@@ -30,7 +30,7 @@
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.buttonAdicionar = new System.Windows.Forms.Button();
-            this.buttonEditar = new System.Windows.Forms.Button();
+            this.buttonTerminar = new System.Windows.Forms.Button();
             this.buttonApagar = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
@@ -41,7 +41,7 @@
             this.dataGridView1.AllowUserToDeleteRows = false;
             this.dataGridView1.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            this.dataGridView1.Location = new System.Drawing.Point(46, 49);
+            this.dataGridView1.Location = new System.Drawing.Point(37, 42);
             this.dataGridView1.MultiSelect = false;
             this.dataGridView1.Name = "dataGridView1";
             this.dataGridView1.ReadOnly = true;
@@ -50,7 +50,7 @@
             this.dataGridView1.RowTemplate.Height = 33;
             this.dataGridView1.Size = new System.Drawing.Size(1316, 386);
             this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView1_CellContentClick);
+            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_SelectionChanged);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView_SelectionChanged);
             // 
             // buttonAdicionar
@@ -59,19 +59,19 @@
             this.buttonAdicionar.Name = "buttonAdicionar";
             this.buttonAdicionar.Size = new System.Drawing.Size(268, 46);
             this.buttonAdicionar.TabIndex = 2;
-            this.buttonAdicionar.Text = "Adicionar Novo Utilizador";
+            this.buttonAdicionar.Text = "Nova Reserva";
             this.buttonAdicionar.UseVisualStyleBackColor = true;
             this.buttonAdicionar.Click += new System.EventHandler(this.buttonAdicionar_Click);
             // 
-            // buttonEditar
+            // buttonTerminar
             // 
-            this.buttonEditar.Location = new System.Drawing.Point(511, 474);
-            this.buttonEditar.Name = "buttonEditar";
-            this.buttonEditar.Size = new System.Drawing.Size(176, 39);
-            this.buttonEditar.TabIndex = 3;
-            this.buttonEditar.Text = "Editar Reserva";
-            this.buttonEditar.UseVisualStyleBackColor = true;
-            this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
+            this.buttonTerminar.Location = new System.Drawing.Point(511, 474);
+            this.buttonTerminar.Name = "buttonTerminar";
+            this.buttonTerminar.Size = new System.Drawing.Size(176, 39);
+            this.buttonTerminar.TabIndex = 3;
+            this.buttonTerminar.Text = "Terminar Reserva";
+            this.buttonTerminar.UseVisualStyleBackColor = true;
+            this.buttonTerminar.Click += new System.EventHandler(this.buttonTerminar_Click);
             // 
             // buttonApagar
             // 
@@ -87,9 +87,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1406, 748);
+            this.ClientSize = new System.Drawing.Size(1406, 650);
             this.Controls.Add(this.buttonApagar);
-            this.Controls.Add(this.buttonEditar);
+            this.Controls.Add(this.buttonTerminar);
             this.Controls.Add(this.buttonAdicionar);
             this.Controls.Add(this.dataGridView1);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
@@ -106,7 +106,7 @@
         #endregion
         private DataGridView dataGridView1;
         private Button buttonAdicionar;
-        private Button buttonEditar;
+        private Button buttonTerminar;
         private Button buttonApagar;
     }
 }

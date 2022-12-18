@@ -1,5 +1,5 @@
 ﻿using CamadaNegocio;
-using Ferramenta;
+using FerramentaReservas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -26,12 +26,12 @@ namespace CamadaInterface
 
         private void setupViews()
         {
-            foreach(string status in Enum.GetNames(typeof(EnumUtilizadores)))
+            foreach(string status in Enum.GetNames(typeof(FerramentaUtilizadores.EnumUtilizadores)))
             {
                 comboBoxCargo.Items.Add(status.ToString());
             }
             textBoxNome.Text = utilizador.NomeUtilizador;
-            if (utilizador.Status != Ferramenta.EnumUtilizadores.Cliente)
+            if (utilizador.Status != FerramentaUtilizadores.EnumUtilizadores.Cliente)
             {
                 int cargo = (int)utilizador.Status;
                 textBoxPass.Text = utilizador.Pass;
@@ -58,7 +58,7 @@ namespace CamadaInterface
             {
                 utilizador.NomeUtilizador = novoNome;
                 utilizador.Pass= novaPass;
-                utilizador.Status = (EnumUtilizadores)novoCargo;
+                utilizador.Status = (FerramentaUtilizadores.EnumUtilizadores)novoCargo;
                 MessageBox.Show("Sucesso","Utilizador Modificado",MessageBoxButtons.OK,MessageBoxIcon.Information);
             }
         }

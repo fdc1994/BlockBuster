@@ -1,5 +1,5 @@
 ﻿using CamadaDados;
-using Ferramenta;
+using FerramentaReservas;
 using System;
 using System.Collections.Generic;
 using System.Data;
@@ -40,9 +40,9 @@ namespace CamadaNegocio
             set { pass = value; }
         }
 
-        private EnumUtilizadores status;
+        private FerramentaUtilizadores.EnumUtilizadores status;
 
-        public EnumUtilizadores Status
+        public FerramentaUtilizadores.EnumUtilizadores Status
         { 
             get { return status; } 
             set { status = value; } 
@@ -56,7 +56,7 @@ namespace CamadaNegocio
 
         }
 
-        public Utilizador(int id, string nomeUtilizador, string pass, EnumUtilizadores status)
+        public Utilizador(int id, string nomeUtilizador, string pass, FerramentaUtilizadores.EnumUtilizadores status)
             : this()
         {
             this.idUtilizador =id;  
@@ -65,7 +65,7 @@ namespace CamadaNegocio
             this.status = status;
         }
 
-        public Utilizador(string nomeUtilizador, string pass, EnumUtilizadores status)
+        public Utilizador(string nomeUtilizador, string pass, FerramentaUtilizadores.EnumUtilizadores status)
             : this()
         {
             this.nomeUtilizador = nomeUtilizador;
@@ -76,7 +76,7 @@ namespace CamadaNegocio
         #endregion
 
         #region Metodos
-        public DataTable ObterUtilizador(int id, out string erro)
+        public DataTable ObterTabelaUtilizador(int id, out string erro)
         {
             Utilizador utilizador = new Utilizador();
             SqlDataReader dataReader = null;
@@ -91,6 +91,20 @@ namespace CamadaNegocio
             return t1;
         }
 
+        public Utilizador ObterUtilizador(int id, out string erro)
+        {
+      
+            SqlDataReader dataReader = null;
+            erro = string.Empty;
+
+            DataTable t1 = CamadaDados.Utilizadores.ObterUtilizador(id, out erro);
+            foreach (DataRow item in t1.Rows)
+            {
+                return new Utilizador((int)item[0], (string)item[1], (string)item[2], (FerramentaUtilizadores.EnumUtilizadores)item[3]);
+            }
+            return new Utilizador();
+        }
+
         public static Utilizador ObterUtilizadorLogin(string nome, string pass, out string erro)
         {
              DataTable t1 = CamadaDados.Utilizadores.ObterUtilizadorLogin(nome, pass, out erro);
@@ -101,7 +115,7 @@ namespace CamadaNegocio
                 {
                     DataRow row = t1.Rows[0];
                     //return first result
-                    return new Utilizador((int)row[0], (string)row[1], (string)row[2], (EnumUtilizadores)row[3]);
+                    return new Utilizador((int)row[0], (string)row[1], (string)row[2], (FerramentaUtilizadores.EnumUtilizadores)row[3]);
                 }
                 catch(Exception ex)
                 {
@@ -118,6 +132,20 @@ namespace CamadaNegocio
             SqlDataReader dataReader = null;
             erro = string.Empty;
             DataTable t1 = CamadaDados.Utilizadores.ObterTodosOsUtilizadores(out erro);
+            foreach (DataRow item in t1.Rows)
+            {
+                utilizador.idUtilizador = (int)item[0];
+                Console.WriteLine(utilizador.ToString());
+            }
+            return t1;
+        }
+
+        public static DataTable ObterTodosOsClientes(out string erro)
+        {
+            Utilizador utilizador = new Utilizador();
+            SqlDataReader dataReader = null;
+            erro = string.Empty;
+            DataTable t1 = CamadaDados.Utilizadores.ObterTodosOsClientes(out erro);
             foreach (DataRow item in t1.Rows)
             {
                 utilizador.idUtilizador = (int)item[0];

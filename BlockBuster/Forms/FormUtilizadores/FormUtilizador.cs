@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Data.SqlClient;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement;
-using Ferramenta;
+using FerramentaReservas;
 using Microsoft.VisualBasic.ApplicationServices;
 using CamadaDados;
 using CamadaInterface.Forms.FormUtilizadores.Dialogs;
@@ -36,8 +36,9 @@ namespace CamadaInterface.Forms
         private void setup() {
 
             string erro = String.Empty;
+            utilizadores.Clear();
             dataTableUtilizadores = Utilizador.ObterTodosOsUtilizadores(out erro);
-            Ferramenta.FerramentaUtilizadores.ResolverEnumsUtilizadores(dataTableUtilizadores);
+            FerramentaUtilizadores.FerramentaUtilizadores.ResolverEnumsUtilizadores(dataTableUtilizadores);
             dataTableUtilizadores.Columns[2].ColumnMapping = MappingType.Hidden;
             if (erro != String.Empty)
             {
@@ -60,10 +61,9 @@ namespace CamadaInterface.Forms
 
         private void setupData()
         {
-            utilizadores.Clear();
            foreach(DataRow row in dataTableUtilizadores.Rows)
             {
-                Utilizador utilizador = new Utilizador((int)row[0], (string)row[1], (string)row[2], (EnumUtilizadores)row[3]);
+                Utilizador utilizador = new Utilizador((int)row[0], (string)row[1], (string)row[2], (FerramentaUtilizadores.EnumUtilizadores)row[3]);
                 utilizadores.Add(utilizador);
             }
         }
@@ -108,7 +108,7 @@ namespace CamadaInterface.Forms
                 int selectedUserId = returnUtilizadorEscolhido().IdUtilizador;
                 if (selectedUserId != Program.GetUtilizador().IdUtilizador)
                 {
-                    FormDialogConfirmarApagar formApagarUtilizador = new FormDialogConfirmarApagar("Utilizador");
+                    FormDialogConfirmarApagar formApagarUtilizador = new FormDialogConfirmarApagar("Utilizador", null);
                     var result = formApagarUtilizador.ShowDialog();
 
                     if (result == DialogResult.OK)

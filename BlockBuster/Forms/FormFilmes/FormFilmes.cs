@@ -1,7 +1,7 @@
 ﻿using BlockBuster;
 using CamadaInterface.Forms.FormUtilizadores.Dialogs;
 using CamadaNegocio;
-using Ferramenta;
+using FerramentaReservas;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -89,7 +89,7 @@ namespace CamadaInterface.Forms.FormFilmes
             try
             {
                 int selectedMovieId = returnFilmeEscolhido().IdFilme;
-                FormDialogConfirmarApagar formApagarFilme = new FormDialogConfirmarApagar("Filme");
+                FormDialogConfirmarApagar formApagarFilme = new FormDialogConfirmarApagar("Filme", null);
                     var result = formApagarFilme.ShowDialog();
 
                     if (result == DialogResult.OK)
