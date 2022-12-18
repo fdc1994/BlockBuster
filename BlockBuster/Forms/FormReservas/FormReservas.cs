@@ -140,7 +140,6 @@ namespace CamadaInterface.Forms
             catch (Exception ex)
             {
                 currentSelectedIndex = -1;
-                MessageBox.Show("Erro:" + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 
