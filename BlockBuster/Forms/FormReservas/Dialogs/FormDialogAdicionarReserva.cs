@@ -60,6 +60,7 @@ namespace CamadaInterface
                     comboBoxFilme.Items.Add(item);
                 }
                 comboBoxFilme.SelectedIndex = 0;
+                this.dateTimePickerStart.Enabled = false;
             }
             catch (Exception ex)
             {
