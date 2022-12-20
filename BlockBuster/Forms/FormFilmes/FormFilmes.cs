@@ -52,6 +52,17 @@ namespace CamadaInterface.Forms.FormFilmes
             this.dataGridView1.DataSource = dataTableFilmes;
             dataGridView1.ReadOnly = true;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            if(filmes.Count == 0 )
+            {
+                //desativar botões para evitar erros e dar uma ajuda visual ao utilizador
+                buttonApagar.Enabled= false;
+                buttonEditar.Enabled= false;
+            }
+            else
+            {
+                buttonApagar.Enabled = true;
+                buttonEditar.Enabled = true;
+            }
         }
 
         private void setupData()
@@ -65,22 +76,37 @@ namespace CamadaInterface.Forms.FormFilmes
         }
         private Filme returnFilmeEscolhido()
         {
-            return filmes[currentSelectedIndex];
+            if (currentSelectedIndex != -1)
+            {
+                return filmes[currentSelectedIndex];
+            }
+            else return null;
         }
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            currentSelectedIndex = dataGridView1.CurrentRow.Index;
+            try { currentSelectedIndex = dataGridView1.CurrentRow.Index; }
+            catch (Exception ex)
+            {
+                currentSelectedIndex = -1;
+            }
         }
 
         private void buttonEditar_Click(object sender, EventArgs e)
         {
-            FormDialogEditarFilme formEditarFilme = new FormDialogEditarFilme(returnFilmeEscolhido());
-            var result = formEditarFilme.ShowDialog();
-
-            if (result == DialogResult.Cancel)
+            try
             {
-                setup();
+                FormDialogEditarFilme formEditarFilme = new FormDialogEditarFilme(returnFilmeEscolhido());
+                var result = formEditarFilme.ShowDialog();
+
+                if (result == DialogResult.Cancel)
+                {
+                    setup();
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
 

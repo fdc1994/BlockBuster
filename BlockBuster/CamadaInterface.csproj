@@ -29,7 +29,6 @@
 
   <ItemGroup>
     <Compile Update="Forms\Dialogs\FormDialogAdicionarFilme.cs" />
-    <Compile Update="Forms\FormReservas\Dialogs\FormDialogEditarReserva.cs" />
     <Compile Update="Forms\FormReservas\FormReservas.cs" />
     <Compile Update="Properties\Settings.Designer.cs">
       <DesignTimeSharedInput>True</DesignTimeSharedInput>

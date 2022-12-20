@@ -56,6 +56,16 @@ namespace CamadaInterface.Forms
             dataGridView1.DataSource = dataTableReservas;
             dataGridView1.ReadOnly = true;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
+            if(reservas.Count == 0) {
+                //desativar botões para evitar erros e dar uma ajuda visual ao utilizador
+                buttonApagar.Enabled = false;
+                buttonTerminar.Enabled = false;
+            }
+            else
+            {
+                buttonApagar.Enabled = true;
+                buttonTerminar.Enabled = true;
+            }
         }
 
         private void setupData()
@@ -145,11 +155,17 @@ namespace CamadaInterface.Forms
 
         private void buttonAdicionar_Click(object sender, EventArgs e)
         {
-            FormDialogAdicionarUtilizador formAdicionarUtilizador = new FormDialogAdicionarUtilizador();
-            var result = formAdicionarUtilizador.ShowDialog();
-            if (result == DialogResult.Cancel)
+            FormDialogAdicionarReserva formAdicionarReserva = new FormDialogAdicionarReserva();
+            if(!formAdicionarReserva.IsDisposed)
             {
-                setup();
+                var result = formAdicionarReserva.ShowDialog();
+                if (result == DialogResult.Cancel)
+                {
+                    setup();
+                }
+            } else
+            {
+                MessageBox.Show("Por favor verifique os stocks de filmes e utilizadores disponíveis", "Erro", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
         }
 
@@ -159,6 +175,7 @@ namespace CamadaInterface.Forms
             {
                 int idReserva = returnReservaEscolhida().IDReserva;
                 String nomeFilme = returnReservaEscolhida().NomeFilme;
+
                 FormDialogConfirmarApagar formApagarReserva = new FormDialogConfirmarApagar("Reserva", null);
                 var result = formApagarReserva.ShowDialog();
 

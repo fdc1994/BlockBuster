@@ -57,6 +57,18 @@ namespace CamadaInterface.Forms
             dataGridView1.DataSource = dataTableUtilizadores;
             dataGridView1.ReadOnly = true;
             dataGridView1.SelectionMode= DataGridViewSelectionMode.FullRowSelect;
+            if(!Program.GetUtilizador().UtilizadorEAdmin() || utilizadores.Count == 0)
+            {
+                //só admins e gerentes podem editar ou apagar utilizadores
+                //colaboradores só podem adicionar clientes
+                buttonApagar.Enabled = false;
+                buttonEditar.Enabled = false;
+            }
+            else
+            {
+                buttonApagar.Enabled = true;
+                buttonEditar.Enabled = true;
+            }
         }
 
         private void setupData()
@@ -71,13 +83,22 @@ namespace CamadaInterface.Forms
 
         private void buttonEditar_Click(object sender, EventArgs e)
         {
-            FormDialogEditarUtilizador formEditarUtilizador = new FormDialogEditarUtilizador(returnUtilizadorEscolhido()); 
-            var result = formEditarUtilizador.ShowDialog();
-
-            if(result == DialogResult.Cancel)
+            try
             {
-                setup();
+                FormDialogEditarUtilizador formEditarUtilizador = new FormDialogEditarUtilizador(returnUtilizadorEscolhido());
+                var result = formEditarUtilizador.ShowDialog();
+
+                if (result == DialogResult.Cancel)
+                {
+                    setup();
+                }
             }
+            catch (Exception ex)
+            {
+                MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                this.Close();
+            }
+           
             
         }
 
@@ -133,6 +154,11 @@ namespace CamadaInterface.Forms
             {
                 MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+        }
+
+        private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
         }
     }
 }

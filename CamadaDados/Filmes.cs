@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ferramenta;
 
 namespace CamadaDados
 {
@@ -15,12 +16,12 @@ namespace CamadaDados
         {
             erro = string.Empty;
 
-            bool resultado = Filmes.GravarFilme(id, nome, quantidade, out erro);
+            bool resultado = Filmes.AtualizarFilme(id, nome, quantidade, out erro);
 
             return resultado;
         }
 
-        public static bool GravarFilme(int id, string nome, int cargo, out string erro)
+        public static bool AtualizarFilme(int id, string nome, int quantidade, out string erro)
         {
             bool resultado = false;
             erro = string.Empty;
@@ -35,23 +36,9 @@ namespace CamadaDados
                     SqlCommand sqlCommand = new SqlCommand("GravarFilme", sqlCon);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter sqlParameter = new SqlParameter("ID", SqlDbType.Int);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = id;
-
-                    sqlCommand.Parameters.Add(sqlParameter);
-
-                    sqlParameter = new SqlParameter("NomeFilme", System.Data.SqlDbType.NVarChar, 80);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = nome;
-
-                    sqlCommand.Parameters.Add(sqlParameter);
-
-                    sqlParameter = new SqlParameter("Quantidade", System.Data.SqlDbType.Int);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = cargo;
-
-                    sqlCommand.Parameters.Add(sqlParameter);
+                    FerramentaSQl.GravarParametro(sqlCommand, id, "ID");
+                    FerramentaSQl.GravarParametro(sqlCommand, nome, "NomeFilme");
+                    FerramentaSQl.GravarParametro(sqlCommand, quantidade, "Quantidade");
 
                     int result = sqlCommand.ExecuteNonQuery();
                     sqlCon.Close();
@@ -82,17 +69,8 @@ namespace CamadaDados
                     SqlCommand sqlCommand = new SqlCommand("GravarNovoFilme", sqlCon);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter sqlParameter = sqlParameter = new SqlParameter("NomeFilme", System.Data.SqlDbType.NVarChar, 80);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = nome;
-
-                    sqlCommand.Parameters.Add(sqlParameter);
-
-                    sqlParameter = new SqlParameter("Quantidade", System.Data.SqlDbType.Int);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = quantidade;
-
-                    sqlCommand.Parameters.Add(sqlParameter);
+                    FerramentaSQl.GravarParametro(sqlCommand, nome, "NomeFilme");
+                    FerramentaSQl.GravarParametro(sqlCommand, quantidade, "Quantidade");
 
                     int result = sqlCommand.ExecuteNonQuery();
                     sqlCon.Close();
@@ -111,7 +89,6 @@ namespace CamadaDados
 
         public static DataTable ObterTodosOsFilmes(out string erro)
         {
-            bool resultado = false;
             erro = string.Empty;
 
 
@@ -130,7 +107,6 @@ namespace CamadaDados
                     {
                         a.Fill(t1);
                     }
-                    resultado = true;
                     return t1;
                 }
             }
@@ -156,10 +132,7 @@ namespace CamadaDados
                     SqlCommand sqlCommand = new SqlCommand("EliminarFilme", sqlCon);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter sqlParameter = new SqlParameter("ID", SqlDbType.Int);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = id;
-                    sqlCommand.Parameters.Add(sqlParameter);
+                    FerramentaSQl.GravarParametro(sqlCommand, id, "ID");
 
                     int result = sqlCommand.ExecuteNonQuery();
                     sqlCon.Close();
@@ -190,20 +163,11 @@ namespace CamadaDados
                     SqlCommand sqlCommand = new SqlCommand("GravarNovaQuantidadeFilme", sqlCon);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter sqlParameter = new SqlParameter("ID", SqlDbType.Int);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = id;
-                    sqlCommand.Parameters.Add(sqlParameter);
+                    FerramentaSQl.GravarParametro(sqlCommand, id, "ID");
+                    FerramentaSQl.GravarParametro(sqlCommand, nomeFilme, "NomeFilme");
+                    FerramentaSQl.GravarParametro(sqlCommand, quantidade, "Quantidade");
 
-                    sqlParameter = new SqlParameter("Quantidade", SqlDbType.Int);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = quantidade;
-                    sqlCommand.Parameters.Add(sqlParameter);
-
-                    sqlParameter = sqlParameter = new SqlParameter("NomeFilme", System.Data.SqlDbType.NVarChar, 80);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = nomeFilme;
-                    sqlCommand.Parameters.Add(sqlParameter);
+                   
 
                     int result = sqlCommand.ExecuteNonQuery();
                     sqlCon.Close();

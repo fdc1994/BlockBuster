@@ -1,4 +1,5 @@
-﻿using CamadaDados;
+﻿using BlockBuster;
+using CamadaDados;
 using CamadaNegocio;
 using FerramentaReservas;
 using System;
@@ -27,10 +28,19 @@ namespace CamadaInterface.Forms.FormUtilizadores.Dialogs
         {
             foreach (string status in Enum.GetNames(typeof(FerramentaUtilizadores.EnumUtilizadores)))
             {
-              this.comboBoxCargo.Items.Add(status);
-              
+                this.comboBoxCargo.Items.Add(status);
+
             }
-            this.comboBoxCargo.SelectedIndex = 0;
+            if (Program.GetUtilizador().UtilizadorEAdmin())
+            {   
+                this.comboBoxCargo.SelectedIndex = 0;
+            }else
+            {
+                //colaboradores só podem adicionar clientes
+                this.comboBoxCargo.SelectedIndex = 3;
+                this.comboBoxCargo.Enabled = false;
+            }
+                
         }
 
         private void FormDialogAdicionarUtilizador_Load(object sender, EventArgs e)

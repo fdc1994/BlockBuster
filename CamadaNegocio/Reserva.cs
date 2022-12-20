@@ -109,14 +109,25 @@ namespace CamadaNegocio
             this.estado = estado;
         }
 
+        public Reserva(int idCliente, int idFilme)
+            : this()
+        {
+            this.idCliente = idCliente;
+            this.idFilme = idFilme;
+        }
+
         #endregion
 
         #region Metodos
         public static DataTable ObterTodasAsReservas(out string erro)
         {
-            erro = string.Empty;
             DataTable t1 = CamadaDados.Reservas.ObterTodasAsReservas(out erro);
             return t1;
+        }
+
+        public void GravarReserva(int idCliente, string nomeCliente, int idFilme, string nomeFilme, out string erro)
+        {
+            CamadaDados.Reservas.GravarReserva(idCliente, nomeCliente, idFilme, nomeFilme, out erro);
         }
         #endregion
     }

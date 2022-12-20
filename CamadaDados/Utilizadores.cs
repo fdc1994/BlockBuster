@@ -6,6 +6,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Runtime.CompilerServices;
+using Ferramenta;
+using System.Security.Policy;
 
 namespace CamadaDados
 {
@@ -35,29 +37,10 @@ namespace CamadaDados
                     SqlCommand sqlCommand = new SqlCommand("GravarUtilizador", sqlCon);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter sqlParameter = new SqlParameter("ID", SqlDbType.Int);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = id;
-
-                    sqlCommand.Parameters.Add(sqlParameter);
-
-                    sqlParameter = new SqlParameter("NomeUtilizador", System.Data.SqlDbType.NVarChar, 80);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = nome;
-
-                    sqlCommand.Parameters.Add(sqlParameter);
-
-                    sqlParameter = new SqlParameter("Hash", System.Data.SqlDbType.NVarChar, 80);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = pass;
-
-                    sqlCommand.Parameters.Add(sqlParameter);
-
-                    sqlParameter = new SqlParameter("Cargo", System.Data.SqlDbType.Int);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = cargo;
-
-                    sqlCommand.Parameters.Add(sqlParameter);
+                    FerramentaSQl.GravarParametro(sqlCommand, id, "ID");
+                    FerramentaSQl.GravarParametro(sqlCommand, nome, "NomeUtilizador");
+                    FerramentaSQl.GravarParametro(sqlCommand, pass, "Hash");
+                    FerramentaSQl.GravarParametro(sqlCommand, cargo, "Cargo");
 
                     int result = sqlCommand.ExecuteNonQuery();
                     sqlCon.Close();
@@ -88,24 +71,9 @@ namespace CamadaDados
 
                     SqlCommand sqlCommand = new SqlCommand("GravarNovoUtilizador", sqlCon);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
-
-                    SqlParameter sqlParameter = sqlParameter = new SqlParameter("NomeUtilizador", System.Data.SqlDbType.NVarChar, 80);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = nome;
-
-                    sqlCommand.Parameters.Add(sqlParameter);
-
-                    sqlParameter = new SqlParameter("Hash", System.Data.SqlDbType.NVarChar, 80);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = pass;
-
-                    sqlCommand.Parameters.Add(sqlParameter);
-
-                    sqlParameter = new SqlParameter("Cargo", System.Data.SqlDbType.Int);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = cargo;
-
-                    sqlCommand.Parameters.Add(sqlParameter);
+                    FerramentaSQl.GravarParametro(sqlCommand, nome, "NomeUtilizador");
+                    FerramentaSQl.GravarParametro(sqlCommand, pass, "Hash");
+                    FerramentaSQl.GravarParametro(sqlCommand, cargo, "Cargo");
 
                     int result = sqlCommand.ExecuteNonQuery();
                     sqlCon.Close();
@@ -124,7 +92,7 @@ namespace CamadaDados
 
         public static DataTable ObterUtilizador(int id, out string erro)
         {
-            bool resultado = false;
+            
             erro = string.Empty;
 
 
@@ -138,18 +106,13 @@ namespace CamadaDados
                     SqlCommand sqlCommand = new SqlCommand("ObterUtilizador", sqlCon);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter sqlParameter = new SqlParameter("ID", SqlDbType.NVarChar, 10);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = id;
-
-                    sqlCommand.Parameters.Add(sqlParameter);
-
+                    FerramentaSQl.GravarParametro(sqlCommand, id, "ID");
+           
                     DataTable t1 = new DataTable();
                     using (SqlDataAdapter a = new SqlDataAdapter(sqlCommand))
                     {
                         a.Fill(t1);
                     }
-                    resultado = true;
                     return t1;
                 }
             }
@@ -163,7 +126,7 @@ namespace CamadaDados
 
         public static DataTable ObterUtilizadorLogin(string nome, string pass, out string erro)
         {
-            bool resultado = false;
+       
             erro = string.Empty;
             try
             {
@@ -175,22 +138,14 @@ namespace CamadaDados
                     SqlCommand sqlCommand = new SqlCommand("ObterUtilizadorLogin", sqlCon);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter sqlParameter = new SqlParameter("nome", SqlDbType.NVarChar, 80);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = nome;
-                    sqlCommand.Parameters.Add(sqlParameter);
-
-                    sqlParameter = new SqlParameter("pass", SqlDbType.NVarChar, 80);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = pass;
-                    sqlCommand.Parameters.Add(sqlParameter);
+                    FerramentaSQl.GravarParametro(sqlCommand, nome, "nome");
+                    FerramentaSQl.GravarParametro(sqlCommand, pass, "pass");
 
                     DataTable t1 = new DataTable();
                     using (SqlDataAdapter a = new SqlDataAdapter(sqlCommand))
                     {
                         a.Fill(t1);
                     }
-                    resultado = true;
                     sqlCon.Close();
                     return t1;
                 }
@@ -205,7 +160,7 @@ namespace CamadaDados
 
         public static DataTable ObterTodosOsUtilizadores(out string erro)
         {
-            bool resultado = false;
+          
             erro = string.Empty;
 
 
@@ -224,7 +179,6 @@ namespace CamadaDados
                     {
                         a.Fill(t1);
                     }
-                    resultado = true;
                     return t1;
                 }
             }
@@ -238,7 +192,7 @@ namespace CamadaDados
 
         public static DataTable ObterTodosOsClientes(out string erro)
         {
-            bool resultado = false;
+            
             erro = string.Empty;
 
 
@@ -256,8 +210,7 @@ namespace CamadaDados
                     using (SqlDataAdapter a = new SqlDataAdapter(sqlCommand))
                     {
                         a.Fill(t1);
-                    }
-                    resultado = true;
+                    }   
                     return t1;
                 }
             }
@@ -271,7 +224,6 @@ namespace CamadaDados
 
         public static DataTable ObterUltimoRegistoUtilizador(out string erro)
         {
-            bool resultado = false;
             erro = string.Empty;
 
 
@@ -290,7 +242,6 @@ namespace CamadaDados
                     {
                         a.Fill(t1);
                     }
-                    resultado = true;
                     return t1;
                 }
             }
@@ -316,10 +267,7 @@ namespace CamadaDados
                     SqlCommand sqlCommand = new SqlCommand("EliminarUtilizador", sqlCon);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter sqlParameter = new SqlParameter("ID", SqlDbType.Int);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = id;
-                    sqlCommand.Parameters.Add(sqlParameter);
+                    FerramentaSQl.GravarParametro(sqlCommand, id, "ID");
 
                     int result = sqlCommand.ExecuteNonQuery();
                     sqlCon.Close();

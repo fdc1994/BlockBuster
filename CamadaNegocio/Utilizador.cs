@@ -79,7 +79,6 @@ namespace CamadaNegocio
         public DataTable ObterTabelaUtilizador(int id, out string erro)
         {
             Utilizador utilizador = new Utilizador();
-            SqlDataReader dataReader = null;
             erro = string.Empty;
 
             DataTable t1 = CamadaDados.Utilizadores.ObterUtilizador(id, out erro);
@@ -93,8 +92,7 @@ namespace CamadaNegocio
 
         public Utilizador ObterUtilizador(int id, out string erro)
         {
-      
-            SqlDataReader dataReader = null;
+     
             erro = string.Empty;
 
             DataTable t1 = CamadaDados.Utilizadores.ObterUtilizador(id, out erro);
@@ -129,7 +127,6 @@ namespace CamadaNegocio
         public static DataTable ObterTodosOsUtilizadores(out string erro)
         {
             Utilizador utilizador = new Utilizador();
-            SqlDataReader dataReader = null;
             erro = string.Empty;
             DataTable t1 = CamadaDados.Utilizadores.ObterTodosOsUtilizadores(out erro);
             foreach (DataRow item in t1.Rows)
@@ -142,8 +139,7 @@ namespace CamadaNegocio
 
         public static DataTable ObterTodosOsClientes(out string erro)
         {
-            Utilizador utilizador = new Utilizador();
-            SqlDataReader dataReader = null;
+            Utilizador utilizador = new Utilizador();   
             erro = string.Empty;
             DataTable t1 = CamadaDados.Utilizadores.ObterTodosOsClientes(out erro);
             foreach (DataRow item in t1.Rows)
@@ -162,6 +158,21 @@ namespace CamadaNegocio
         public bool GravarNovoUtilizador(out string erro)
         {
             return CamadaDados.Utilizadores.GravarNovoUtilizador(this.NomeUtilizador, this.pass, (int)this.status, out erro);
+        }
+
+        public bool UtilizadorECliente()
+        {
+            return this.status == FerramentaUtilizadores.EnumUtilizadores.Cliente;
+        }
+
+        public bool UtilizadorEAdmin()
+        {
+            return this.status == FerramentaUtilizadores.EnumUtilizadores.Admin || this.status == FerramentaUtilizadores.EnumUtilizadores.Gerente;
+        }
+
+        public bool UtilizadorEColaborador()
+        {
+            return this.status == FerramentaUtilizadores.EnumUtilizadores.Colaborador;
         }
         #endregion
     }

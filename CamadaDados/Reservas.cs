@@ -5,6 +5,7 @@ using System.Data;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ferramenta;
 
 namespace CamadaDados
 {
@@ -12,7 +13,6 @@ namespace CamadaDados
     {
         public static DataTable ObterTodasAsReservas(out string erro)
         {
-            bool resultado = false;
             erro = string.Empty;
 
 
@@ -31,7 +31,6 @@ namespace CamadaDados
                     {
                         a.Fill(t1);
                     }
-                    resultado = true;
                     return t1;
                 }
             }
@@ -57,11 +56,8 @@ namespace CamadaDados
                     SqlCommand sqlCommand = new SqlCommand("ApagarReserva", sqlCon);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter sqlParameter = new SqlParameter("ID", SqlDbType.Int);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = id;
-                    sqlCommand.Parameters.Add(sqlParameter);
-
+                    FerramentaSQl.GravarParametro(sqlCommand, id, "ID");
+                  
                     int result = sqlCommand.ExecuteNonQuery();
                     sqlCon.Close();
 
@@ -91,10 +87,7 @@ namespace CamadaDados
                     SqlCommand sqlCommand = new SqlCommand("TerminarReserva", sqlCon);
                     sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
 
-                    SqlParameter sqlParameter = new SqlParameter("ID", SqlDbType.Int);
-                    sqlParameter.Direction = System.Data.ParameterDirection.Input;
-                    sqlParameter.Value = id;
-                    sqlCommand.Parameters.Add(sqlParameter);
+                    FerramentaSQl.GravarParametro(sqlCommand, id, "ID");
 
                     int result = sqlCommand.ExecuteNonQuery();
                     sqlCon.Close();
@@ -110,7 +103,44 @@ namespace CamadaDados
 
             return resultado;
         }
+
+        public static Boolean GravarReserva(int idCliente, string nomeCliente, int idFilme, string nomeFilme, out string erro)
+        {
+            bool resultado = false;
+            erro = string.Empty;
+            try
+            {
+                using (SqlConnection sqlCon = new SqlConnection(Properties.Settings.Default.ConnectionString))
+
+                {
+                    sqlCon.Open();
+
+                    SqlCommand sqlCommand = new SqlCommand("GravarNovaReserva", sqlCon);
+                    sqlCommand.CommandType = System.Data.CommandType.StoredProcedure;
+
+                    FerramentaSQl.GravarParametro(sqlCommand, idCliente, "IDCliente");
+                    FerramentaSQl.GravarParametro(sqlCommand, idFilme, "IDFilme");
+                    FerramentaSQl.GravarParametro(sqlCommand, nomeCliente, "NomeCliente");
+                    FerramentaSQl.GravarParametro(sqlCommand, nomeFilme, "NomeFilme");
+
+                    int result = sqlCommand.ExecuteNonQuery();
+                    sqlCon.Close();
+
+                    resultado = true;
+                    return resultado;
+                }
+            }
+            catch (Exception ex)
+            {
+                erro = ex.Message;
+            }
+
+            return resultado;
+        }
+       
     }
+
+   
 
     
 }
