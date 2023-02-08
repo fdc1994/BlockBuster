@@ -51,6 +51,7 @@ namespace CamadaInterface.Forms.FormFilmes
         {
             this.dataGridView1.DataSource = dataTableFilmes;
             dataGridView1.ReadOnly = true;
+            dataGridView1.StandardTab = true;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             if(filmes.Count == 0 )
             {
@@ -85,7 +86,9 @@ namespace CamadaInterface.Forms.FormFilmes
 
         private void dataGridView1_SelectionChanged(object sender, EventArgs e)
         {
-            try { currentSelectedIndex = dataGridView1.CurrentRow.Index; }
+            try { 
+                currentSelectedIndex = dataGridView1.CurrentRow.Index; 
+            }
             catch (Exception ex)
             {
                 currentSelectedIndex = -1;
@@ -145,6 +148,20 @@ namespace CamadaInterface.Forms.FormFilmes
             if (result == DialogResult.Cancel)
             {
                 setup();
+            }
+        }
+
+        private void dataGridView1_onKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+                {
+                    int row = dataGridView1.CurrentRow.Index;
+                int col = dataGridView1.CurrentCell.ColumnIndex;
+                try { currentSelectedIndex = dataGridView1.CurrentRow.Index; }
+                catch (Exception ex)
+                {
+                    currentSelectedIndex = -1;
+                }
             }
         }
     }

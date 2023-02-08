@@ -56,6 +56,7 @@ namespace CamadaInterface.Forms
         {
             dataGridView1.DataSource = dataTableUtilizadores;
             dataGridView1.ReadOnly = true;
+            dataGridView1.StandardTab = true;
             dataGridView1.SelectionMode= DataGridViewSelectionMode.FullRowSelect;
             if(!Program.GetUtilizador().UtilizadorEAdmin() || utilizadores.Count == 0)
             {
@@ -109,7 +110,11 @@ namespace CamadaInterface.Forms
 
         private void dataGridView_SelectionChanged(object sender, EventArgs e)
         {
-           currentSelectedIndex = dataGridView1.CurrentRow.Index;
+            try { currentSelectedIndex = dataGridView1.CurrentRow.Index; }
+            catch (Exception ex)
+            {
+                currentSelectedIndex = -1;
+            }
         }
 
         private void buttonAdicionar_Click(object sender, EventArgs e)
@@ -159,6 +164,20 @@ namespace CamadaInterface.Forms
         private void dataGridView1_CellContentClick(object sender, DataGridViewCellEventArgs e)
         {
 
+        }
+
+        private void dataGridView1_onKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            {
+                int row = dataGridView1.CurrentRow.Index;
+                int col = dataGridView1.CurrentCell.ColumnIndex;
+                try { currentSelectedIndex = dataGridView1.CurrentRow.Index; }
+                catch (Exception ex)
+                {
+                    currentSelectedIndex = -1;
+                }
+            }
         }
     }
 }

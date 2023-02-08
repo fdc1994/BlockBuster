@@ -50,7 +50,8 @@
             this.dataGridView1.RowTemplate.Height = 33;
             this.dataGridView1.Size = new System.Drawing.Size(1316, 386);
             this.dataGridView1.TabIndex = 1;
-            this.dataGridView1.CellContentClick += new System.Windows.Forms.DataGridViewCellEventHandler(this.dataGridView_SelectionChanged);
+            this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
+            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_onKeyUp);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView_SelectionChanged);
             // 
             // buttonAdicionar

@@ -55,6 +55,7 @@ namespace CamadaInterface.Forms
         {
             dataGridView1.DataSource = dataTableReservas;
             dataGridView1.ReadOnly = true;
+            dataGridView1.StandardTab = true;
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             if(reservas.Count == 0) {
                 //desativar botões para evitar erros e dar uma ajuda visual ao utilizador
@@ -207,5 +208,20 @@ namespace CamadaInterface.Forms
                 MessageBox.Show("Erro: " + ex.Message, "Erro", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
         }
+        private void dataGridView1_onKeyUp(object sender, KeyEventArgs e)
+        {
+            if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
+            {
+                int row = dataGridView1.CurrentRow.Index;
+                int col = dataGridView1.CurrentCell.ColumnIndex;
+                try { currentSelectedIndex = dataGridView1.CurrentRow.Index; }
+                catch (Exception ex)
+                {
+                    currentSelectedIndex = -1;
+                }
+            }
+        }
     }
+
+    
 }
