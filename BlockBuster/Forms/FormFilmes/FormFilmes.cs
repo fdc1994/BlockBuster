@@ -155,7 +155,7 @@ namespace CamadaInterface.Forms.FormFilmes
         {
             if (e.KeyCode == Keys.Enter || e.KeyCode == Keys.Up || e.KeyCode == Keys.Down)
                 {
-                    int row = dataGridView1.CurrentRow.Index;
+                int row = dataGridView1.CurrentRow.Index;
                 int col = dataGridView1.CurrentCell.ColumnIndex;
                 try { currentSelectedIndex = dataGridView1.CurrentRow.Index; }
                 catch (Exception ex)

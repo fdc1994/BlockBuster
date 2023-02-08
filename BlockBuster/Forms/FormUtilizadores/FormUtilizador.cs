@@ -62,13 +62,14 @@ namespace CamadaInterface.Forms
             {
                 //só admins e gerentes podem editar ou apagar utilizadores
                 //colaboradores só podem adicionar clientes
-                buttonApagar.Enabled = false;
-                buttonEditar.Enabled = false;
+
+                addEditDelete1.buttonApagar.Enabled = false;
+                addEditDelete1.buttonEditar.Enabled = false;
             }
             else
             {
-                buttonApagar.Enabled = true;
-                buttonEditar.Enabled = true;
+                addEditDelete1.buttonApagar.Enabled = true;
+                addEditDelete1.buttonEditar.Enabled = true;
             }
         }
 
@@ -179,5 +180,6 @@ namespace CamadaInterface.Forms
                 }
             }
         }
+
     }
 }
