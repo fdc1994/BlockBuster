@@ -65,12 +65,14 @@ namespace CamadaNegocio
 
         public static DataTable ObterTodosOsFilmes(out string erro)
         {
+            //retorna todos os filmes
             erro = string.Empty;
             DataTable t1 = CamadaDados.Filmes.ObterTodosOsFilmes(out erro);
             return t1;
         }
 
-        public void GravarFilme(int id, string nome, int quantidade, out string erro) { 
+        public void GravarFilme(int id, string nome, int quantidade, out string erro) {
+            //Grava ou atualiza filme se tiver ID
             CamadaDados.Filmes.AtualizarFilme(id, nome, quantidade, out erro );
             this.idFilme = id;
             this.nomeFilme=nome;
@@ -79,6 +81,7 @@ namespace CamadaNegocio
 
         public bool GravarNovoFilme(string nome, int quantidade, out string erro)
         {
+            //grava novo filme com novo id
             this.nomeFilme = nome;
             this.quantidade = quantidade;
             return CamadaDados.Filmes.GravarNovoFilme(nome, quantidade, out erro);
@@ -86,6 +89,7 @@ namespace CamadaNegocio
 
         public bool GravarNovaQuantidade(int quantidade, out string erro)
         {
+            //Grava uma nova quantidade de um filme atraves do id
             this.quantidade = quantidade;
             return CamadaDados.Filmes.AtualizarFilme(this.idFilme, quantidade, this.nomeFilme,out erro);
             
@@ -93,6 +97,7 @@ namespace CamadaNegocio
 
         public void ApagarFilme(int id, out string erro)
         {
+            //Apaga um filme com id
             CamadaDados.Filmes.ApagarFilme(id, out erro);
         }
         #endregion

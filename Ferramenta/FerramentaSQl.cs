@@ -10,6 +10,14 @@ namespace Ferramenta
 {
     public class FerramentaSQl
     {
+
+        /**
+        * 
+        * Simplifica o código para evitar repetição e verbosidade
+        * 
+        * Tem overload de int e string
+        * 
+        * **/
         public static void GravarParametro(SqlCommand comando, int valor, string nomeParametro)
         {
             SqlParameter sqlParameter = new SqlParameter(nomeParametro, SqlDbType.Int);

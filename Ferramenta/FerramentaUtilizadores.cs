@@ -40,5 +40,22 @@ namespace FerramentaUtilizadores
             table.Columns[3].ColumnMapping = MappingType.Hidden;
             return table;
         }
+
+        public static bool EUtilizador(EnumUtilizadores status)
+        {
+            return status == EnumUtilizadores.Cliente;
+        }
+
+        public static bool EAdmin(EnumUtilizadores status)
+        {
+            return status == EnumUtilizadores.Admin || status == EnumUtilizadores.Gerente;
+        }
+
+        public static bool EColaborador(EnumUtilizadores status)
+        {
+            return status == EnumUtilizadores.Colaborador;
+        }
+
+
     }
 }

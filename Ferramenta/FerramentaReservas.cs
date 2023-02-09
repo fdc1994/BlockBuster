@@ -17,6 +17,12 @@ namespace FerramentaReservas
         
     }
 
+    /**
+        * 
+        * Oculta a tabela com o valor enum e substitui por uma nova tabela com significado para o utilizador
+        * 
+        * **/
+
     public class FerramentaReservas
     {
         public static DataTable ResolverEnumsEncomendas(DataTable table)

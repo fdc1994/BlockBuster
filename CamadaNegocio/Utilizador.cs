@@ -78,6 +78,7 @@ namespace CamadaNegocio
         #region Metodos
         public DataTable ObterTabelaUtilizador(int id, out string erro)
         {
+            // Obtem todos os utilizadores
             Utilizador utilizador = new Utilizador();
             erro = string.Empty;
 
@@ -92,7 +93,7 @@ namespace CamadaNegocio
 
         public Utilizador ObterUtilizador(int id, out string erro)
         {
-     
+            // Obtem um utilizador especifico
             erro = string.Empty;
 
             DataTable t1 = CamadaDados.Utilizadores.ObterUtilizador(id, out erro);
@@ -105,8 +106,12 @@ namespace CamadaNegocio
 
         public static Utilizador ObterUtilizadorLogin(string nome, string pass, out string erro)
         {
+             /**
+              * Obtem um utilizador para o login
+              * estes métodos deviam de conter apenas hashs de strings
+              * mas para motivos académicos decidi deixar a string em si para análise mais fácil
+              **/
              DataTable t1 = CamadaDados.Utilizadores.ObterUtilizadorLogin(nome, pass, out erro);
-           // DataTable t1 = CamadaDados.Utilizadores.ObterTodosOsUtilizadores(out erro);
             if (t1 != null && t1.Rows.Count > 0)
             {
                 try
@@ -126,6 +131,9 @@ namespace CamadaNegocio
 
         public static DataTable ObterTodosOsUtilizadores(out string erro)
         {
+            /**
+              * Obtem todos os utilizadores
+              **/
             Utilizador utilizador = new Utilizador();
             erro = string.Empty;
             DataTable t1 = CamadaDados.Utilizadores.ObterTodosOsUtilizadores(out erro);
@@ -139,6 +147,11 @@ namespace CamadaNegocio
 
         public static DataTable ObterTodosOsClientes(out string erro)
         {
+            /**
+              * Obtem Apenas os utilizadores clientes
+              * 
+              * (para as reservas)
+              **/
             Utilizador utilizador = new Utilizador();   
             erro = string.Empty;
             DataTable t1 = CamadaDados.Utilizadores.ObterTodosOsClientes(out erro);
@@ -152,6 +165,9 @@ namespace CamadaNegocio
 
         public void GravarUtilizador(string nome, string pass, int cargo, out string erro)
         {
+            /**
+              * Atualiza um novo utilizador
+              **/
             CamadaDados.Utilizadores.GravarUtilizador(this.idUtilizador, nome, pass, cargo, out erro);
         }
 
@@ -160,20 +176,22 @@ namespace CamadaNegocio
             return CamadaDados.Utilizadores.GravarNovoUtilizador(this.NomeUtilizador, this.pass, (int)this.status, out erro);
         }
 
-        public bool UtilizadorECliente()
+        public Boolean UtilizadorECliente()
         {
-            return this.status == FerramentaUtilizadores.EnumUtilizadores.Cliente;
+            return FerramentaUtilizadores.FerramentaUtilizadores.EUtilizador(this.status);
         }
 
-        public bool UtilizadorEAdmin()
+        public Boolean UtilizadorEAdmin()
         {
-            return this.status == FerramentaUtilizadores.EnumUtilizadores.Admin || this.status == FerramentaUtilizadores.EnumUtilizadores.Gerente;
+            return FerramentaUtilizadores.FerramentaUtilizadores.EAdmin(this.status);
         }
-
-        public bool UtilizadorEColaborador()
+        public Boolean UtilizadorEColaborador()
         {
-            return this.status == FerramentaUtilizadores.EnumUtilizadores.Colaborador;
+            return FerramentaUtilizadores.FerramentaUtilizadores.EColaborador(this.status);
         }
-        #endregion
     }
+
+      
+        #endregion
 }
+

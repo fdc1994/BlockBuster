@@ -48,14 +48,21 @@ namespace CamadaInterface
 
             if (erro == String.Empty && novoUtilizador != null)
             {
-                Program.SetupNewLoggedInUser(novoUtilizador);
-                childForm = new FormGestao(this);
-                childForm.Show();
-                this.Hide();
+                if(novoUtilizador.UtilizadorEAdmin() || novoUtilizador.UtilizadorEColaborador())
+                {
+                    Program.SetupNewLoggedInUser(novoUtilizador);
+                    childForm = new FormGestao(this);
+                    childForm.Show();
+                    this.Hide();
+                }
+                else
+            {
+                MessageBox.Show("Erro: Apenas Admins, Gerentes e Colaboradores podem iniciar sessão" + erro, "Utilizador não autorizado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
             }
             else
             {
-                MessageBox.Show("Erro: " + erro, "Utilizador não encontrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Erro: Utilizador não encontrado" + erro, "Utilizador não encontrado", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

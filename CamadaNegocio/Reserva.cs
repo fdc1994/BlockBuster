@@ -119,14 +119,17 @@ namespace CamadaNegocio
         #endregion
 
         #region Metodos
+       
         public static DataTable ObterTodasAsReservas(out string erro)
         {
+            //Obtem todas as reservas
             DataTable t1 = CamadaDados.Reservas.ObterTodasAsReservas(out erro);
             return t1;
         }
 
         public void GravarReserva(int idCliente, string nomeCliente, int idFilme, string nomeFilme, out string erro)
         {
+            //Grava e atualiza novas reservas
             CamadaDados.Reservas.GravarReserva(idCliente, nomeCliente, idFilme, nomeFilme, out erro);
         }
         #endregion
