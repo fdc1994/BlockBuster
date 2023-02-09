@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.buttonApagar = new System.Windows.Forms.Button();
-            this.buttonEditar = new System.Windows.Forms.Button();
-            this.buttonAdicionar = new System.Windows.Forms.Button();
+            this.addEditDelete1 = new CamadaInterface.AddEditDelete();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -52,47 +50,47 @@
             this.dataGridView1.ShowEditingIcon = false;
             this.dataGridView1.Size = new System.Drawing.Size(502, 286);
             this.dataGridView1.TabIndex = 0;
-            this.dataGridView1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_onKeyUp);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView1_SelectionChanged);
+            this.dataGridView1.KeyUp += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_onKeyUp);
+
             // 
             // buttonApagar
             // 
-            this.buttonApagar.Location = new System.Drawing.Point(327, 322);
-            this.buttonApagar.Name = "buttonApagar";
-            this.buttonApagar.Size = new System.Drawing.Size(176, 39);
-            this.buttonApagar.TabIndex = 7;
-            this.buttonApagar.Text = "Apagar Filme";
-            this.buttonApagar.UseVisualStyleBackColor = true;
-            this.buttonApagar.Click += new System.EventHandler(this.buttonApagar_Click);
+            this.addEditDelete1.buttonApagar.Size = new System.Drawing.Size(176, 39);
+            this.addEditDelete1.buttonApagar.TabIndex = 7;
+            this.addEditDelete1.buttonApagar.Text = "Apagar Filme";
+            this.addEditDelete1.buttonApagar.UseVisualStyleBackColor = true;
+            this.addEditDelete1.buttonApagar.Click += new System.EventHandler(this.buttonApagar_Click);
             // 
             // buttonEditar
             // 
-            this.buttonEditar.Location = new System.Drawing.Point(131, 322);
-            this.buttonEditar.Name = "buttonEditar";
-            this.buttonEditar.Size = new System.Drawing.Size(176, 39);
-            this.buttonEditar.TabIndex = 6;
-            this.buttonEditar.Text = "Editar Filme";
-            this.buttonEditar.UseVisualStyleBackColor = true;
-            this.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
+            this.addEditDelete1.buttonEditar.Size = new System.Drawing.Size(176, 39);
+            this.addEditDelete1.buttonEditar.TabIndex = 6;
+            this.addEditDelete1.buttonEditar.Text = "Editar Filme";
+            this.addEditDelete1.buttonEditar.UseVisualStyleBackColor = true;
+            this.addEditDelete1.buttonEditar.Click += new System.EventHandler(this.buttonEditar_Click);
             // 
             // buttonAdicionar
             // 
-            this.buttonAdicionar.Location = new System.Drawing.Point(183, 380);
-            this.buttonAdicionar.Name = "buttonAdicionar";
-            this.buttonAdicionar.Size = new System.Drawing.Size(268, 46);
-            this.buttonAdicionar.TabIndex = 5;
-            this.buttonAdicionar.Text = "Adicionar Novo Filme";
-            this.buttonAdicionar.UseVisualStyleBackColor = true;
-            this.buttonAdicionar.Click += new System.EventHandler(this.buttonAdicionar_Click);
+            this.addEditDelete1.buttonAdicionar.Size = new System.Drawing.Size(268, 46);
+            this.addEditDelete1.buttonAdicionar.TabIndex = 5;
+            this.addEditDelete1.buttonAdicionar.Text = "Adicionar Novo Filme";
+            this.addEditDelete1.buttonAdicionar.UseVisualStyleBackColor = true;
+            this.addEditDelete1.buttonAdicionar.Click += new System.EventHandler(this.buttonAdicionar_Click);
+            // 
+            // addEditDelete1
+            // 
+            this.addEditDelete1.Location = new System.Drawing.Point(113, 304);
+            this.addEditDelete1.Name = "addEditDelete1";
+            this.addEditDelete1.Size = new System.Drawing.Size(401, 156);
+            this.addEditDelete1.TabIndex = 8;
             // 
             // FormFilmes
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(609, 446);
-            this.Controls.Add(this.buttonApagar);
-            this.Controls.Add(this.buttonEditar);
-            this.Controls.Add(this.buttonAdicionar);
+            this.ClientSize = new System.Drawing.Size(609, 491);
+            this.Controls.Add(this.addEditDelete1);
             this.Controls.Add(this.dataGridView1);
             this.Name = "FormFilmes";
             this.Text = "Filmes";
@@ -105,8 +103,6 @@
         #endregion
 
         private DataGridView dataGridView1;
-        private Button buttonApagar;
-        private Button buttonEditar;
-        private Button buttonAdicionar;
+        private AddEditDelete addEditDelete1;
     }
 }

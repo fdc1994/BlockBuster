@@ -80,7 +80,7 @@
             // buttonAdicionar
             // 
             this.addEditDelete1.buttonAdicionar.TabIndex = 5;
-            this.addEditDelete1.buttonAdicionar.Text = "Adiconar Utilizador";
+            this.addEditDelete1.buttonAdicionar.Text = "Adicionar Utilizador";
             this.addEditDelete1.buttonAdicionar.UseVisualStyleBackColor = true;
             this.addEditDelete1.buttonAdicionar.Click += new System.EventHandler(this.buttonAdicionar_Click);
 

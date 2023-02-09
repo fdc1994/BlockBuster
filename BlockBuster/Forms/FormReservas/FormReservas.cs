@@ -59,13 +59,13 @@ namespace CamadaInterface.Forms
             dataGridView1.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             if(reservas.Count == 0) {
                 //desativar botões para evitar erros e dar uma ajuda visual ao utilizador
-                buttonApagar.Enabled = false;
-                buttonTerminar.Enabled = false;
+                addEditDelete1.buttonApagar.Enabled = false;
+                addEditDelete1.buttonEditar.Enabled = false;
             }
             else
             {
-                buttonApagar.Enabled = true;
-                buttonTerminar.Enabled = true;
+                addEditDelete1.buttonApagar.Enabled = true;
+                addEditDelete1.buttonEditar.Enabled = true;
             }
         }
 

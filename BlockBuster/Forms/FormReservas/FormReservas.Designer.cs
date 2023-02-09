@@ -29,9 +29,7 @@
         private void InitializeComponent()
         {
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
-            this.buttonAdicionar = new System.Windows.Forms.Button();
-            this.buttonTerminar = new System.Windows.Forms.Button();
-            this.buttonApagar = new System.Windows.Forms.Button();
+            this.addEditDelete1 = new CamadaInterface.AddEditDelete();
             ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
@@ -51,47 +49,48 @@
             this.dataGridView1.Size = new System.Drawing.Size(1316, 386);
             this.dataGridView1.TabIndex = 1;
             this.dataGridView1.SelectionChanged += new System.EventHandler(this.dataGridView_SelectionChanged);
-            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_onKeyUp);
             this.dataGridView1.Click += new System.EventHandler(this.dataGridView_SelectionChanged);
+            this.dataGridView1.KeyDown += new System.Windows.Forms.KeyEventHandler(this.dataGridView1_onKeyUp);
             // 
-            // buttonAdicionar
+            // addEditDelete1
             // 
-            this.buttonAdicionar.Location = new System.Drawing.Point(563, 532);
-            this.buttonAdicionar.Name = "buttonAdicionar";
-            this.buttonAdicionar.Size = new System.Drawing.Size(268, 46);
-            this.buttonAdicionar.TabIndex = 2;
-            this.buttonAdicionar.Text = "Nova Reserva";
-            this.buttonAdicionar.UseVisualStyleBackColor = true;
-            this.buttonAdicionar.Click += new System.EventHandler(this.buttonAdicionar_Click);
+            this.addEditDelete1.Location = new System.Drawing.Point(503, 458);
+            this.addEditDelete1.Name = "addEditDelete1";
+            this.addEditDelete1.Size = new System.Drawing.Size(419, 180);
+            this.addEditDelete1.TabIndex = 2;
+
             // 
-            // buttonTerminar
+            // buttonEditar
             // 
-            this.buttonTerminar.Location = new System.Drawing.Point(511, 474);
-            this.buttonTerminar.Name = "buttonTerminar";
-            this.buttonTerminar.Size = new System.Drawing.Size(176, 39);
-            this.buttonTerminar.TabIndex = 3;
-            this.buttonTerminar.Text = "Terminar Reserva";
-            this.buttonTerminar.UseVisualStyleBackColor = true;
-            this.buttonTerminar.Click += new System.EventHandler(this.buttonTerminar_Click);
+
+            this.addEditDelete1.buttonEditar.Size = new System.Drawing.Size(176, 38);
+            this.addEditDelete1.buttonEditar.TabIndex = 3;
+            this.addEditDelete1.buttonEditar.Text = "Terminar Reserva";
+            this.addEditDelete1.buttonEditar.UseVisualStyleBackColor = true;
+            this.addEditDelete1.buttonEditar.Click += new System.EventHandler(this.buttonTerminar_Click);
             // 
             // buttonApagar
             // 
-            this.buttonApagar.Location = new System.Drawing.Point(707, 474);
-            this.buttonApagar.Name = "buttonApagar";
-            this.buttonApagar.Size = new System.Drawing.Size(176, 39);
-            this.buttonApagar.TabIndex = 4;
-            this.buttonApagar.Text = "Apagar Reserva";
-            this.buttonApagar.UseVisualStyleBackColor = true;
-            this.buttonApagar.Click += new System.EventHandler(this.buttonApagar_Click);
+            this.addEditDelete1.buttonApagar.TabIndex = 4;
+            this.addEditDelete1.buttonApagar.Text = "Apagar Reserva";
+            this.addEditDelete1.buttonApagar.UseVisualStyleBackColor = true;
+            this.addEditDelete1.buttonApagar.Click += new System.EventHandler(this.buttonApagar_Click);
+
+            // 
+            // buttonAdicionar
+            // 
+            this.addEditDelete1.buttonAdicionar.TabIndex = 5;
+            this.addEditDelete1.buttonAdicionar.Text = "Adicionar Reserva";
+            this.addEditDelete1.buttonAdicionar.UseVisualStyleBackColor = true;
+            this.addEditDelete1.buttonAdicionar.Click += new System.EventHandler(this.buttonAdicionar_Click);
+
             // 
             // FormReservas
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(10F, 25F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1406, 650);
-            this.Controls.Add(this.buttonApagar);
-            this.Controls.Add(this.buttonTerminar);
-            this.Controls.Add(this.buttonAdicionar);
+            this.Controls.Add(this.addEditDelete1);
             this.Controls.Add(this.dataGridView1);
             this.Margin = new System.Windows.Forms.Padding(4, 5, 4, 5);
             this.MaximizeBox = false;
@@ -106,8 +105,6 @@
 
         #endregion
         private DataGridView dataGridView1;
-        private Button buttonAdicionar;
-        private Button buttonTerminar;
-        private Button buttonApagar;
+        private AddEditDelete addEditDelete1;
     }
 }

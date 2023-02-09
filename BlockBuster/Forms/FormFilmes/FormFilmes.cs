@@ -56,13 +56,13 @@ namespace CamadaInterface.Forms.FormFilmes
             if(filmes.Count == 0 )
             {
                 //desativar botões para evitar erros e dar uma ajuda visual ao utilizador
-                buttonApagar.Enabled= false;
-                buttonEditar.Enabled= false;
+                addEditDelete1.buttonApagar.Enabled= false;
+                addEditDelete1.buttonEditar.Enabled= false;
             }
             else
             {
-                buttonApagar.Enabled = true;
-                buttonEditar.Enabled = true;
+                addEditDelete1.buttonApagar.Enabled = true;
+                addEditDelete1.buttonEditar.Enabled = true;
             }
         }
 
