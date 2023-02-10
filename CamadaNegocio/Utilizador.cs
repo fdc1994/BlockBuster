@@ -176,6 +176,12 @@ namespace CamadaNegocio
             return CamadaDados.Utilizadores.GravarNovoUtilizador(this.NomeUtilizador, this.pass, (int)this.status, out erro);
         }
 
+        /**
+         * 
+         * Lógica de comparação de utilizadores
+         * 
+         * **/
+
         public Boolean UtilizadorECliente()
         {
             return FerramentaUtilizadores.FerramentaUtilizadores.EUtilizador(this.status);

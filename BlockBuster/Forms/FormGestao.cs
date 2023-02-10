@@ -1,5 +1,6 @@
 ﻿using BlockBuster;
 using CamadaInterface.Forms;
+using CamadaInterface.Forms.FormAluno;
 using CamadaInterface.Forms.FormFilmes;
 using System;
 using System.Collections.Generic;
@@ -20,6 +21,7 @@ namespace CamadaInterface
         FormUtilizador formUtilizadores;
         FormFilmes formFilmes;
         FormReservas formReservas;
+        FormAluno formAluno;
         public FormGestao(Form parentForm)
         {
             InitializeComponent();
@@ -74,6 +76,19 @@ namespace CamadaInterface
             else
             {
                 formReservas.BringToFront();
+            }
+        }
+
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (formAluno == null || formAluno.IsDisposed)
+            {
+                formAluno = new FormAluno();
+                formAluno.Show();
+            }
+            else
+            {
+                formAluno.BringToFront();
             }
         }
     }

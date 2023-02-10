@@ -23,6 +23,12 @@ namespace FerramentaUtilizadores
 
     public class FerramentaUtilizadores
     {
+
+        /**
+         * 
+         * Oculta a tabela com o valor enum e substitui por uma nova tabela com significado para o utilizador
+         * 
+         * **/
         public static DataTable ResolverEnumsUtilizadores(DataTable table)
         {
             table.Columns.Add(new DataColumn("Descrição Cargo"));
@@ -40,6 +46,12 @@ namespace FerramentaUtilizadores
             table.Columns[3].ColumnMapping = MappingType.Hidden;
             return table;
         }
+
+        /**
+         * 
+         * Lógica de comparação de utilizadores
+         * 
+         * **/
 
         public static bool EUtilizador(EnumUtilizadores status)
         {
